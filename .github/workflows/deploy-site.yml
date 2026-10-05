@@ -12,8 +12,8 @@ permissions:
 
 # Procure por esta seção no seu arquivo:
 concurrency:
-  group: "pages-v2" # Mudamos de "pages" para "pages-v2"
-  cancel-in-progress: true
+  group: "pages" # Mudamos de "pages" para "pages-v2"
+  cancel-in-progress: false
 
 jobs:
   build-and-deploy:
