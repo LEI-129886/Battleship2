@@ -30,4 +30,4 @@ jobs:
         uses: peaceiris/actions-gh-pages@v4
         with:
           github_token: ${{ secrets.GITHUB_TOKEN }}
-          publish_dir: ./target/site # Pasta onde o Maven gera o site estático
+          publish_dir: ./docs/ # Pasta onde o Maven gera o site estático
