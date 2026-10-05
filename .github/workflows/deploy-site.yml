@@ -10,9 +10,10 @@ permissions:
   pages: write
   id-token: write
 
+# Procure por esta seção no seu arquivo:
 concurrency:
-  group: "pages"
-  cancel-in-progress: false
+  group: "pages-v2" # Mudamos de "pages" para "pages-v2"
+  cancel-in-progress: true
 
 jobs:
   build-and-deploy:
