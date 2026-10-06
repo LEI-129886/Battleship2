@@ -3,23 +3,13 @@ name: Deploy Maven Site to GitHub Pages
 on:
   push:
     branches:
-      - main # Ajuste para 'master' se o seu repositório usar esse nome
+      - main # Executa sempre que houver push na branch principal
 
 permissions:
-  contents: read
-  pages: write
-  id-token: write
-
-# Procure por esta seção no seu arquivo:
-concurrency:
-  group: "pages" # Mudamos de "pages" para "pages-v2"
-  cancel-in-progress: false
+  contents: write # Permissão necessária para criar a branch de páginas
 
 jobs:
   build-and-deploy:
-    environment:
-      name: github-pages
-      url: ${{ steps.deployment.outputs.page_url }}
     runs-on: ubuntu-latest
 
     steps:
@@ -33,17 +23,11 @@ jobs:
           distribution: 'temurin'
           cache: 'maven'
 
-      - name: Configurar ambiente do GitHub Pages
-        uses: actions/configure-pages@v5
-
       - name: Gerar Site com o Maven
         run: mvn clean site
 
-      - name: Compactar os arquivos gerados
-        uses: actions/upload-pages-artifact@v3
+      - name: Publicar no GitHub Pages
+        uses: peaceiris/actions-gh-pages@v4
         with:
-          path: './target/site'
-
-      - name: Publicar no GitHub Pages Oficial
-        id: deployment
-        uses: actions/deploy-pages@v4
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          publish_dir: ./target/site # Pasta onde o Maven gera o site estático
