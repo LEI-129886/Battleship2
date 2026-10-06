@@ -10,7 +10,8 @@
   uses: actions/configure-pages@v5
 
 - name: Gerar Site com o Maven
-  run: mvn clean site
+  run: mvn clean site-deploy
+
 
 - name: Compactar os arquivos gerados
   uses: actions/upload-pages-artifact@v3
