@@ -41,7 +41,7 @@ jobs:
       - name: Compactar os arquivos gerados
         uses: actions/upload-pages-artifact@v3
         with:
-          path: './target/site'
+          path: '.'
 
       - name: Publicar no GitHub Pages Oficial
         id: deployment
