@@ -178,14 +178,30 @@
 					</includes>
 				</configuration>
 			</plugin>
+			<!-- CONFIGURAÇÃO DO SITE PLUGIN ADAPTADA PARA A PASTA DOCS -->
 			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>
 				<artifactId>maven-site-plugin</artifactId>
-				<version>3.12.0</version>
+				<version>3.12.1</version>
 				<configuration>
+					<!-- Força o Maven a criar o site dentro de /docs como o seu GitHub Pages pede -->
 					<outputDirectory>${project.basedir}/docs</outputDirectory>
 				</configuration>
+				<dependencies>
+					<dependency>
+						<groupId>org.apache.maven.doxia</groupId>
+						<artifactId>doxia-module-markdown</artifactId>
+						<version>1.12.0</version>
+					</dependency>
+				</dependencies>
 			</plugin>
+
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-project-info-reports-plugin</artifactId>
+				<version>3.4.1</version>
+			</plugin>
+
 		</plugins>
 	</build>
 </project>
