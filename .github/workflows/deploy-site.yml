@@ -1,48 +1,22 @@
-name: Deploy Maven Site to GitHub Pages
+# ... (mantenha o início igual)
+- name: Configurar o Java (JDK 21)
+  uses: actions/setup-java@v4
+  with:
+    java-version: '21' # Alterado de 17 para 21
+    distribution: 'temurin'
+    cache: 'maven'
 
-on:
-  push:
-    branches:
-      - main # Ajuste para 'master' se o seu repositório usar esse nome
+- name: Configurar ambiente do GitHub Pages
+  uses: actions/configure-pages@v5
 
-permissions:
-  contents: read
-  pages: write
-  id-token: write
+- name: Gerar Site com o Maven
+  run: mvn clean site
 
-concurrency:
-  group: "pages"
-  cancel-in-progress: false
+- name: Compactar os arquivos gerados
+  uses: actions/upload-pages-artifact@v3
+  with:
+    path: './docs' # Alterado de ./target/site para ./docs (onde o seu pom.xml guarda o site)
 
-jobs:
-  build-and-deploy:
-    environment:
-      name: github-pages
-      url: ${{ steps.deployment.outputs.page_url }}
-    runs-on: ubuntu-latest
-
-    steps:
-      - name: Checkout do Código
-        uses: actions/checkout@v4
-
-      - name: Configurar o Java (JDK 17)
-        uses: actions/setup-java@v4
-        with:
-          java-version: '17'
-          distribution: 'temurin'
-          cache: 'maven'
-
-      - name: Configurar ambiente do GitHub Pages
-        uses: actions/configure-pages@v5
-
-      - name: Gerar Site com o Maven
-        run: mvn clean site
-
-      - name: Compactar os arquivos gerados
-        uses: actions/upload-pages-artifact@v3
-        with:
-          path: './target/site'
-
-      - name: Publicar no GitHub Pages Oficial
-        id: deployment
-        uses: actions/deploy-pages@v4
+- name: Publicar no GitHub Pages Oficial
+  id: deployment
+  uses: actions/deploy-pages@v4
