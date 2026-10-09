@@ -516,7 +516,7 @@ public class Game implements IGame
 
 		Move move = new Move(moveNumber, shots, shotResults);
 
-//		System.out.println(move);
+		System.out.println(move);
 
 		move.processEnemyFire(true);
 

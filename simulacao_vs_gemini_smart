@@ -1,0 +1,1339 @@
+C:\Users\santi\.jdks\ms-21.0.12.1\bin\java.exe "-javaagent:C:\Program Files\JetBrains\IntelliJ IDEA 2025.3.3\lib\idea_rt.jar=56438" -Dfile.encoding=UTF-8 -Dsun.stdout.encoding=UTF-8 -Dsun.stderr.encoding=UTF-8 -classpath C:\Users\santi\Desktop\LEI\3ano\ES\Battleship2\target\classes;C:\Users\santi\.m2\repository\org\springframework\boot\spring-boot-starter-web\3.2.4\spring-boot-starter-web-3.2.4.jar;C:\Users\santi\.m2\repository\org\springframework\boot\spring-boot-starter\3.2.4\spring-boot-starter-3.2.4.jar;C:\Users\santi\.m2\repository\org\springframework\boot\spring-boot\3.2.4\spring-boot-3.2.4.jar;C:\Users\santi\.m2\repository\org\springframework\boot\spring-boot-autoconfigure\3.2.4\spring-boot-autoconfigure-3.2.4.jar;C:\Users\santi\.m2\repository\org\springframework\boot\spring-boot-starter-logging\3.2.4\spring-boot-starter-logging-3.2.4.jar;C:\Users\santi\.m2\repository\ch\qos\logback\logback-classic\1.4.14\logback-classic-1.4.14.jar;C:\Users\santi\.m2\repository\ch\qos\logback\logback-core\1.4.14\logback-core-1.4.14.jar;C:\Users\santi\.m2\repository\org\apache\logging\log4j\log4j-to-slf4j\2.21.1\log4j-to-slf4j-2.21.1.jar;C:\Users\santi\.m2\repository\org\slf4j\jul-to-slf4j\2.0.12\jul-to-slf4j-2.0.12.jar;C:\Users\santi\.m2\repository\jakarta\annotation\jakarta.annotation-api\2.1.1\jakarta.annotation-api-2.1.1.jar;C:\Users\santi\.m2\repository\org\springframework\spring-core\6.1.5\spring-core-6.1.5.jar;C:\Users\santi\.m2\repository\org\springframework\spring-jcl\6.1.5\spring-jcl-6.1.5.jar;C:\Users\santi\.m2\repository\org\yaml\snakeyaml\2.2\snakeyaml-2.2.jar;C:\Users\santi\.m2\repository\org\springframework\boot\spring-boot-starter-json\3.2.4\spring-boot-starter-json-3.2.4.jar;C:\Users\santi\.m2\repository\com\fasterxml\jackson\datatype\jackson-datatype-jdk8\2.15.4\jackson-datatype-jdk8-2.15.4.jar;C:\Users\santi\.m2\repository\com\fasterxml\jackson\datatype\jackson-datatype-jsr310\2.15.4\jackson-datatype-jsr310-2.15.4.jar;C:\Users\santi\.m2\repository\com\fasterxml\jackson\module\jackson-module-parameter-names\2.15.4\jackson-module-parameter-names-2.15.4.jar;C:\Users\santi\.m2\repository\org\springframework\boot\spring-boot-starter-tomcat\3.2.4\spring-boot-starter-tomcat-3.2.4.jar;C:\Users\santi\.m2\repository\org\apache\tomcat\embed\tomcat-embed-core\10.1.19\tomcat-embed-core-10.1.19.jar;C:\Users\santi\.m2\repository\org\apache\tomcat\embed\tomcat-embed-el\10.1.19\tomcat-embed-el-10.1.19.jar;C:\Users\santi\.m2\repository\org\apache\tomcat\embed\tomcat-embed-websocket\10.1.19\tomcat-embed-websocket-10.1.19.jar;C:\Users\santi\.m2\repository\org\springframework\spring-web\6.1.5\spring-web-6.1.5.jar;C:\Users\santi\.m2\repository\org\springframework\spring-beans\6.1.5\spring-beans-6.1.5.jar;C:\Users\santi\.m2\repository\io\micrometer\micrometer-observation\1.12.4\micrometer-observation-1.12.4.jar;C:\Users\santi\.m2\repository\io\micrometer\micrometer-commons\1.12.4\micrometer-commons-1.12.4.jar;C:\Users\santi\.m2\repository\org\springframework\spring-webmvc\6.1.5\spring-webmvc-6.1.5.jar;C:\Users\santi\.m2\repository\org\springframework\spring-aop\6.1.5\spring-aop-6.1.5.jar;C:\Users\santi\.m2\repository\org\springframework\spring-context\6.1.5\spring-context-6.1.5.jar;C:\Users\santi\.m2\repository\org\springframework\spring-expression\6.1.5\spring-expression-6.1.5.jar;C:\Users\santi\.m2\repository\org\apache\commons\commons-lang3\3.17.0\commons-lang3-3.17.0.jar;C:\Users\santi\.m2\repository\org\apache\logging\log4j\log4j-core\2.25.4\log4j-core-2.25.4.jar;C:\Users\santi\.m2\repository\org\apache\logging\log4j\log4j-api\2.25.4\log4j-api-2.25.4.jar;C:\Users\santi\.m2\repository\com\fasterxml\jackson\core\jackson-databind\2.18.11\jackson-databind-2.18.11.jar;C:\Users\santi\.m2\repository\com\fasterxml\jackson\core\jackson-annotations\2.18.11\jackson-annotations-2.18.11.jar;C:\Users\santi\.m2\repository\com\fasterxml\jackson\core\jackson-core\2.18.11\jackson-core-2.18.11.jar;C:\Users\santi\.m2\repository\io\qameta\allure\allure-java-commons-test\2.31.0\allure-java-commons-test-2.31.0.jar;C:\Users\santi\.m2\repository\commons-io\commons-io\2.20.0\commons-io-2.20.0.jar;C:\Users\santi\.m2\repository\io\github\benas\random-beans\3.9.0\random-beans-3.9.0.jar;C:\Users\santi\.m2\repository\org\objenesis\objenesis\3.0.1\objenesis-3.0.1.jar;C:\Users\santi\.m2\repository\io\github\classgraph\classgraph\4.6.18\classgraph-4.6.18.jar;C:\Users\santi\.m2\repository\io\qameta\allure\allure-java-commons\2.31.0\allure-java-commons-2.31.0.jar;C:\Users\santi\.m2\repository\org\slf4j\slf4j-api\2.0.17\slf4j-api-2.0.17.jar;C:\Users\santi\.m2\repository\io\qameta\allure\allure-model\2.31.0\allure-model-2.31.0.jar;C:\Users\santi\.m2\repository\org\jetbrains\annotations\26.1.0\annotations-26.1.0.jar;C:\Users\santi\.m2\repository\org\apache\pdfbox\pdfbox\3.0.3\pdfbox-3.0.3.jar;C:\Users\santi\.m2\repository\org\apache\pdfbox\pdfbox-io\3.0.3\pdfbox-io-3.0.3.jar;C:\Users\santi\.m2\repository\org\apache\pdfbox\fontbox\3.0.3\fontbox-3.0.3.jar;C:\Users\santi\.m2\repository\commons-logging\commons-logging\1.3.3\commons-logging-1.3.3.jar battleship.Main
+***  Battleship  ***
+======================= AJUDA DO MENU =========================
+Digite um dos comandos abaixo para interagir com o jogo:
+- gerafrota: Gera uma frota aleatória de navios.
+- lefrota: Permite criar e carregar uma frota personalizada.
+- estado: Mostra o status atual da frota.)
+- mapa: Exibe o mapa da frota.
+- rajada: Realiza uma rajada de disparos.
+- simula: Simula um jogo completo.
+- relatorio: Exporta o historico da partida para PDF.
+- tiros: Lista os tiros válidos realizados (* = tiro em navio, o = tiro na água)
+- guardar <caminho>: Guarda o jogo num ficheiro JSON.
+- carregar <caminho>: Carrega um jogo de um ficheiro JSON.
+- desisto: Encerra o jogo.
+===============================================================
+> gerafrota
+
+     1 2 3 4 5 6 7 8 9 10
+   +---------------------+
+ A | . . . . # . . # # . |
+ B | . . . . . . . . . . |
+ C | . . # # # # . # . . |
+ D | . . . . . . . . . . |
+ E | # . # # . . . . . . |
+ F | # . . . . . . . . . |
+ G | # . . . . . # # # . |
+ H | . . # # # . . . . . |
+ I | # . . # . . # # . # |
+ J | . . . # . . . . . . |
+   +---------------------+
+          LEGENDA
+'#'->navio, '-'->adjacente a navio, '.'->água
+'*'->Tiro certeiro, 'o'->Tiro na água
+
+O seu jogo começa agora.
+> rajada B3 F6 I2
+Move{number=1, shots=3, results=3}
+Jogada nº1 -> 3 tiros válidos: 3 tiros na água
+{
+  "validShots" : 3,
+  "sunkBoats" : [ ],
+  "repeatedShots" : 0,
+  "outsideShots" : 0,
+  "hitsOnBoats" : [ ],
+  "missedShots" : 3
+}
+
+[ {
+  "row" : "B",
+  "column" : 3
+}, {
+  "row" : "F",
+  "column" : 6
+}, {
+  "row" : "I",
+  "column" : 2
+} ]
+
+Estado da Frota: 11 a flutuar, 0 afundados!
+
+     1 2 3 4 5 6 7 8 9 10
+   +---------------------+
+ A | . . . . # . . # # . |
+ B | . . o . . . . . . . |
+ C | . . # # # # . # . . |
+ D | . . . . . . . . . . |
+ E | # . # # . . . . . . |
+ F | # . . . . o . . . . |
+ G | # . . . . . # # # . |
+ H | . . # # # . . . . . |
+ I | # o . # . . # # . # |
+ J | . . . # . . . . . . |
+   +---------------------+
+
+> rajada D5 H8 C8
+Demoraste 00:33 na tua 1ª jogada
+Move{number=2, shots=3, results=3}
+Jogada nº2 -> 3 tiros válidos: 1 Barca ao fundo + 2 tiros na água
+{
+  "validShots" : 3,
+  "sunkBoats" : [ {
+    "count" : 1,
+    "type" : "Barca"
+  } ],
+  "repeatedShots" : 0,
+  "outsideShots" : 0,
+  "hitsOnBoats" : [ ],
+  "missedShots" : 2
+}
+
+[ {
+  "row" : "D",
+  "column" : 5
+}, {
+  "row" : "H",
+  "column" : 8
+}, {
+  "row" : "C",
+  "column" : 8
+} ]
+
+Estado da Frota: 10 a flutuar, 1 afundados!
+
+     1 2 3 4 5 6 7 8 9 10
+   +---------------------+
+ A | . . . . # . . # # . |
+ B | . . o . . . - - - . |
+ C | . . # # # # - * - . |
+ D | . . . . o . - - - . |
+ E | # . # # . . . . . . |
+ F | # . . . . o . . . . |
+ G | # . . . . . # # # . |
+ H | . . # # # . . o . . |
+ I | # o . # . . # # . # |
+ J | . . . # . . . . . . |
+   +---------------------+
+
+> rajada E3 G4 J7
+Demoraste 00:27 na tua 2ª jogada
+Move{number=3, shots=3, results=3}
+Jogada nº3 -> 3 tiros válidos: 1 tiro num(a) Caravela + 2 tiros na água
+{
+  "validShots" : 3,
+  "sunkBoats" : [ ],
+  "repeatedShots" : 0,
+  "outsideShots" : 0,
+  "hitsOnBoats" : [ {
+    "hits" : 1,
+    "type" : "Caravela"
+  } ],
+  "missedShots" : 2
+}
+
+[ {
+  "row" : "E",
+  "column" : 3
+}, {
+  "row" : "G",
+  "column" : 4
+}, {
+  "row" : "J",
+  "column" : 7
+} ]
+
+Estado da Frota: 10 a flutuar, 1 afundados!
+
+     1 2 3 4 5 6 7 8 9 10
+   +---------------------+
+ A | . . . . # . . # # . |
+ B | . . o . . . - - - . |
+ C | . . # # # # - * - . |
+ D | . . . . o . - - - . |
+ E | # . * # . . . . . . |
+ F | # . . . . o . . . . |
+ G | # . . o . . # # # . |
+ H | . . # # # . . o . . |
+ I | # o . # . . # # . # |
+ J | . . . # . . o . . . |
+   +---------------------+
+
+> rajada E4 G3 B7
+Demoraste 00:42 na tua 3ª jogada
+Move{number=4, shots=3, results=3}
+Jogada nº4 -> 3 tiros válidos: 1 Caravela ao fundo + 2 tiros na água
+{
+  "validShots" : 3,
+  "sunkBoats" : [ {
+    "count" : 1,
+    "type" : "Caravela"
+  } ],
+  "repeatedShots" : 0,
+  "outsideShots" : 0,
+  "hitsOnBoats" : [ ],
+  "missedShots" : 2
+}
+
+[ {
+  "row" : "E",
+  "column" : 4
+}, {
+  "row" : "G",
+  "column" : 3
+}, {
+  "row" : "B",
+  "column" : 7
+} ]
+
+Estado da Frota: 9 a flutuar, 2 afundados!
+
+     1 2 3 4 5 6 7 8 9 10
+   +---------------------+
+ A | . . . . # . . # # . |
+ B | . . o . . . o - - . |
+ C | . . # # # # - * - . |
+ D | . - - - o . - - - . |
+ E | # - * * - . . . . . |
+ F | # - - - - o . . . . |
+ G | # . o o . . # # # . |
+ H | . . # # # . . o . . |
+ I | # o . # . . # # . # |
+ J | . . . # . . o . . . |
+   +---------------------+
+
+> rajada D1 G10 J4
+Demoraste 14:33 na tua 4ª jogada
+Move{number=5, shots=3, results=3}
+Jogada nº5 -> 3 tiros válidos: 1 tiro num(a) Galeao + 2 tiros na água
+{
+  "validShots" : 3,
+  "sunkBoats" : [ ],
+  "repeatedShots" : 0,
+  "outsideShots" : 0,
+  "hitsOnBoats" : [ {
+    "hits" : 1,
+    "type" : "Galeao"
+  } ],
+  "missedShots" : 2
+}
+
+[ {
+  "row" : "D",
+  "column" : 1
+}, {
+  "row" : "G",
+  "column" : 10
+}, {
+  "row" : "J",
+  "column" : 4
+} ]
+
+Estado da Frota: 9 a flutuar, 2 afundados!
+
+     1 2 3 4 5 6 7 8 9 10
+   +---------------------+
+ A | . . . . # . . # # . |
+ B | . . o . . . o - - . |
+ C | . . # # # # - * - . |
+ D | o - - - o . - - - . |
+ E | # - * * - . . . . . |
+ F | # - - - - o . . . . |
+ G | # . o o . . # # # o |
+ H | . . # # # . . o . . |
+ I | # o . # . . # # . # |
+ J | . . . * . . o . . . |
+   +---------------------+
+
+> rajada D2 G9 J5
+Demoraste 00:36 na tua 5ª jogada
+Move{number=6, shots=3, results=3}
+Jogada nº6 -> 3 tiros válidos: 1 tiro num(a) Nau + 2 tiros na água
+{
+  "validShots" : 3,
+  "sunkBoats" : [ ],
+  "repeatedShots" : 0,
+  "outsideShots" : 0,
+  "hitsOnBoats" : [ {
+    "hits" : 1,
+    "type" : "Nau"
+  } ],
+  "missedShots" : 2
+}
+
+[ {
+  "row" : "D",
+  "column" : 2
+}, {
+  "row" : "G",
+  "column" : 9
+}, {
+  "row" : "J",
+  "column" : 5
+} ]
+
+Estado da Frota: 9 a flutuar, 2 afundados!
+
+     1 2 3 4 5 6 7 8 9 10
+   +---------------------+
+ A | . . . . # . . # # . |
+ B | . . o . . . o - - . |
+ C | . . # # # # - * - . |
+ D | o o - - o . - - - . |
+ E | # - * * - . . . . . |
+ F | # - - - - o . . . . |
+ G | # . o o . . # # * o |
+ H | . . # # # . . o . . |
+ I | # o . # . . # # . # |
+ J | . . . * o . o . . . |
+   +---------------------+
+
+> rajada C1 G8 J3
+Demoraste 00:38 na tua 6ª jogada
+Move{number=7, shots=3, results=3}
+Jogada nº7 -> 3 tiros válidos: 1 tiro num(a) Nau + 2 tiros na água
+{
+  "validShots" : 3,
+  "sunkBoats" : [ ],
+  "repeatedShots" : 0,
+  "outsideShots" : 0,
+  "hitsOnBoats" : [ {
+    "hits" : 1,
+    "type" : "Nau"
+  } ],
+  "missedShots" : 2
+}
+
+[ {
+  "row" : "C",
+  "column" : 1
+}, {
+  "row" : "G",
+  "column" : 8
+}, {
+  "row" : "J",
+  "column" : 3
+} ]
+
+Estado da Frota: 9 a flutuar, 2 afundados!
+
+     1 2 3 4 5 6 7 8 9 10
+   +---------------------+
+ A | . . . . # . . # # . |
+ B | . . o . . . o - - . |
+ C | o . # # # # - * - . |
+ D | o o - - o . - - - . |
+ E | # - * * - . . . . . |
+ F | # - - - - o . . . . |
+ G | # . o o . . # * * o |
+ H | . . # # # . . o . . |
+ I | # o . # . . # # . # |
+ J | . . o * o . o . . . |
+   +---------------------+
+
+> rajada E1 G2 J2
+Demoraste 01:01 na tua 7ª jogada
+Move{number=8, shots=3, results=3}
+Jogada nº8 -> 3 tiros válidos: 1 tiro num(a) Nau + 2 tiros na água
+{
+  "validShots" : 3,
+  "sunkBoats" : [ ],
+  "repeatedShots" : 0,
+  "outsideShots" : 0,
+  "hitsOnBoats" : [ {
+    "hits" : 1,
+    "type" : "Nau"
+  } ],
+  "missedShots" : 2
+}
+
+[ {
+  "row" : "E",
+  "column" : 1
+}, {
+  "row" : "G",
+  "column" : 2
+}, {
+  "row" : "J",
+  "column" : 2
+} ]
+
+Estado da Frota: 9 a flutuar, 2 afundados!
+
+     1 2 3 4 5 6 7 8 9 10
+   +---------------------+
+ A | . . . . # . . # # . |
+ B | . . o . . . o - - . |
+ C | o . # # # # - * - . |
+ D | o o - - o . - - - . |
+ E | * - * * - . . . . . |
+ F | # - - - - o . . . . |
+ G | # o o o . . # * * o |
+ H | . . # # # . . o . . |
+ I | # o . # . . # # . # |
+ J | . o o * o . o . . . |
+   +---------------------+
+
+> rajada J1 F2 I8
+Demoraste 00:30 na tua 8ª jogada
+Move{number=9, shots=3, results=3}
+Jogada nº9 -> 3 tiros válidos: 1 tiro num(a) Caravela + 2 tiros na água
+{
+  "validShots" : 3,
+  "sunkBoats" : [ ],
+  "repeatedShots" : 0,
+  "outsideShots" : 0,
+  "hitsOnBoats" : [ {
+    "hits" : 1,
+    "type" : "Caravela"
+  } ],
+  "missedShots" : 2
+}
+
+[ {
+  "row" : "J",
+  "column" : 1
+}, {
+  "row" : "F",
+  "column" : 2
+}, {
+  "row" : "I",
+  "column" : 8
+} ]
+
+Estado da Frota: 9 a flutuar, 2 afundados!
+
+     1 2 3 4 5 6 7 8 9 10
+   +---------------------+
+ A | . . . . # . . # # . |
+ B | . . o . . . o - - . |
+ C | o . # # # # - * - . |
+ D | o o - - o . - - - . |
+ E | * - * * - . . . . . |
+ F | # o - - - o . . . . |
+ G | # o o o . . # * * o |
+ H | . . # # # . . o . . |
+ I | # o . # . . # * . # |
+ J | o o o * o . o . . . |
+   +---------------------+
+
+> {
+  "validShots" : 3,
+  "sunkBoats" : [ ],
+  "repeatedShots" : 0,
+  "outsideShots" : 0,
+  "hitsOnBoats" : [ {
+    "hits" : 1,
+    "type" : "Caravela"
+  } ],
+  "missedShots" : 2
+}Que comando é esse??? Repete ...
+> Que comando é esse??? Repete ...
+> Que comando é esse??? Repete ...
+> Que comando é esse??? Repete ...
+> Que comando é esse??? Repete ...
+> Que comando é esse??? Repete ...
+> Que comando é esse??? Repete ...
+> Que comando é esse??? Repete ...
+> Que comando é esse??? Repete ...
+> Que comando é esse??? Repete ...
+> Que comando é esse??? Repete ...
+> Que comando é esse??? Repete ...
+> Que comando é esse??? Repete ...
+> Que comando é esse??? Repete ...
+> Que comando é esse??? Repete ...
+> Que comando é esse??? Repete ...
+> Que comando é esse??? Repete ...
+> Que comando é esse??? Repete ...
+> Que comando é esse??? Repete ...
+> Que comando é esse??? Repete ...
+> Que comando é esse??? Repete ...
+> Que comando é esse??? Repete ...
+> Que comando é esse??? Repete ...
+> Que comando é esse??? Repete ...
+> Que comando é esse??? Repete ...
+> Que comando é esse??? Repete ...
+> Que comando é esse??? Repete ...
+> Que comando é esse??? Repete ...
+> Que comando é esse??? Repete ...
+> rajada F1 I7 I9
+Que comando é esse??? Repete ...
+> Que comando é esse??? Repete ...
+> Que comando é esse??? Repete ...
+> Que comando é esse??? Repete ...
+> rajada F1 I7 I9
+Demoraste 00:49 na tua 9ª jogada
+Move{number=10, shots=3, results=3}
+Jogada nº10 -> 3 tiros válidos: 1 Caravela ao fundo + 1 tiro num(a) Nau + 1 tiro na água
+{
+  "validShots" : 3,
+  "sunkBoats" : [ {
+    "count" : 1,
+    "type" : "Caravela"
+  } ],
+  "repeatedShots" : 0,
+  "outsideShots" : 0,
+  "hitsOnBoats" : [ {
+    "hits" : 1,
+    "type" : "Nau"
+  } ],
+  "missedShots" : 1
+}
+
+[ {
+  "row" : "F",
+  "column" : 1
+}, {
+  "row" : "I",
+  "column" : 7
+}, {
+  "row" : "I",
+  "column" : 9
+} ]
+
+Estado da Frota: 8 a flutuar, 3 afundados!
+
+     1 2 3 4 5 6 7 8 9 10
+   +---------------------+
+ A | . . . . # . . # # . |
+ B | . . o . . . o - - . |
+ C | o . # # # # - * - . |
+ D | o o - - o . - - - . |
+ E | * - * * - . . . . . |
+ F | * o - - - o . . . . |
+ G | # o o o . . # * * o |
+ H | . . # # # - - o - . |
+ I | # o . # . - * * o # |
+ J | o o o * o - o - - . |
+   +---------------------+
+
+> rajada A5 D8 H2
+Demoraste 00:31 na tua 10ª jogada
+Move{number=11, shots=3, results=3}
+Jogada nº11 -> 3 tiros válidos: 1 Barca ao fundo + 2 tiros na água
+{
+  "validShots" : 3,
+  "sunkBoats" : [ {
+    "count" : 1,
+    "type" : "Barca"
+  } ],
+  "repeatedShots" : 0,
+  "outsideShots" : 0,
+  "hitsOnBoats" : [ ],
+  "missedShots" : 2
+}
+
+[ {
+  "row" : "A",
+  "column" : 5
+}, {
+  "row" : "D",
+  "column" : 8
+}, {
+  "row" : "H",
+  "column" : 2
+} ]
+
+Estado da Frota: 7 a flutuar, 4 afundados!
+
+     1 2 3 4 5 6 7 8 9 10
+   +---------------------+
+ A | . . . - * - . # # . |
+ B | . . o - - - o - - . |
+ C | o . # # # # - * - . |
+ D | o o - - o . - o - . |
+ E | * - * * - . . . . . |
+ F | * o - - - o . . . . |
+ G | # o o o . . # * * o |
+ H | . o # # # - - o - . |
+ I | # o . # . - * * o # |
+ J | o o o * o - o - - . |
+   +---------------------+
+
+> rajada A1 C5 H5
+Demoraste 00:45 na tua 11ª jogada
+Move{number=12, shots=3, results=3}
+Jogada nº12 -> 3 tiros válidos: 1 tiro num(a) Galeao + 1 tiro num(a) Fragata + 1 tiro na água
+{
+  "validShots" : 3,
+  "sunkBoats" : [ ],
+  "repeatedShots" : 0,
+  "outsideShots" : 0,
+  "hitsOnBoats" : [ {
+    "hits" : 1,
+    "type" : "Galeao"
+  }, {
+    "hits" : 1,
+    "type" : "Fragata"
+  } ],
+  "missedShots" : 1
+}
+
+[ {
+  "row" : "A",
+  "column" : 1
+}, {
+  "row" : "C",
+  "column" : 5
+}, {
+  "row" : "H",
+  "column" : 5
+} ]
+
+Estado da Frota: 7 a flutuar, 4 afundados!
+
+     1 2 3 4 5 6 7 8 9 10
+   +---------------------+
+ A | o . . - * - . # # . |
+ B | . . o - - - o - - . |
+ C | o . # # * # - * - . |
+ D | o o - - o . - o - . |
+ E | * - * * - . . . . . |
+ F | * o - - - o . . . . |
+ G | # o o o . . # * * o |
+ H | . o # # * - - o - . |
+ I | # o . # . - * * o # |
+ J | o o o * o - o - - . |
+   +---------------------+
+
+> rajada A2 C6 H6
+Demoraste 00:36 na tua 12ª jogada
+Move{number=13, shots=3, results=3}
+Jogada nº13 -> 3 tiros válidos: 1 tiro num(a) Fragata + 2 tiros na água
+{
+  "validShots" : 3,
+  "sunkBoats" : [ ],
+  "repeatedShots" : 0,
+  "outsideShots" : 0,
+  "hitsOnBoats" : [ {
+    "hits" : 1,
+    "type" : "Fragata"
+  } ],
+  "missedShots" : 2
+}
+
+[ {
+  "row" : "A",
+  "column" : 2
+}, {
+  "row" : "C",
+  "column" : 6
+}, {
+  "row" : "H",
+  "column" : 6
+} ]
+
+Estado da Frota: 7 a flutuar, 4 afundados!
+
+     1 2 3 4 5 6 7 8 9 10
+   +---------------------+
+ A | o o . - * - . # # . |
+ B | . . o - - - o - - . |
+ C | o . # # * * - * - . |
+ D | o o - - o . - o - . |
+ E | * - * * - . . . . . |
+ F | * o - - - o . . . . |
+ G | # o o o . . # * * o |
+ H | . o # # * o - o - . |
+ I | # o . # . - * * o # |
+ J | o o o * o - o - - . |
+   +---------------------+
+
+> rajada H4 C4 A3
+Demoraste 01:11 na tua 13ª jogada
+Move{number=14, shots=3, results=3}
+Jogada nº14 -> 3 tiros válidos: 1 tiro num(a) Galeao + 1 tiro num(a) Fragata + 1 tiro na água
+{
+  "validShots" : 3,
+  "sunkBoats" : [ ],
+  "repeatedShots" : 0,
+  "outsideShots" : 0,
+  "hitsOnBoats" : [ {
+    "hits" : 1,
+    "type" : "Galeao"
+  }, {
+    "hits" : 1,
+    "type" : "Fragata"
+  } ],
+  "missedShots" : 1
+}
+
+[ {
+  "row" : "H",
+  "column" : 4
+}, {
+  "row" : "C",
+  "column" : 4
+}, {
+  "row" : "A",
+  "column" : 3
+} ]
+
+Estado da Frota: 7 a flutuar, 4 afundados!
+
+     1 2 3 4 5 6 7 8 9 10
+   +---------------------+
+ A | o o o - * - . # # . |
+ B | . . o - - - o - - . |
+ C | o . # * * * - * - . |
+ D | o o - - o . - o - . |
+ E | * - * * - . . . . . |
+ F | * o - - - o . . . . |
+ G | # o o o . . # * * o |
+ H | . o # * * o - o - . |
+ I | # o . # . - * * o # |
+ J | o o o * o - o - - . |
+   +---------------------+
+
+> rajada H3 C3 B4
+Demoraste 00:51 na tua 14ª jogada
+Move{number=15, shots=3, results=3}
+Jogada nº15 -> 3 tiros válidos: 1 Fragata ao fundo + 1 tiro num(a) Galeao + 1 tiro na água
+{
+  "validShots" : 3,
+  "sunkBoats" : [ {
+    "count" : 1,
+    "type" : "Fragata"
+  } ],
+  "repeatedShots" : 0,
+  "outsideShots" : 0,
+  "hitsOnBoats" : [ {
+    "hits" : 1,
+    "type" : "Galeao"
+  } ],
+  "missedShots" : 1
+}
+
+[ {
+  "row" : "H",
+  "column" : 3
+}, {
+  "row" : "C",
+  "column" : 3
+}, {
+  "row" : "B",
+  "column" : 4
+} ]
+
+Estado da Frota: 6 a flutuar, 5 afundados!
+
+     1 2 3 4 5 6 7 8 9 10
+   +---------------------+
+ A | o o o - * - . # # . |
+ B | . - o o - - o - - . |
+ C | o - * * * * - * - . |
+ D | o o - - o - - o - . |
+ E | * - * * - . . . . . |
+ F | * o - - - o . . . . |
+ G | # o o o . . # * * o |
+ H | . o * * * o - o - . |
+ I | # o . # . - * * o # |
+ J | o o o * o - o - - . |
+   +---------------------+
+
+> rajada D4 B5 A6
+Demoraste 00:45 na tua 15ª jogada
+Move{number=16, shots=3, results=3}
+Jogada nº16 -> 3 tiros válidos: 3 tiros na água
+{
+  "validShots" : 3,
+  "sunkBoats" : [ ],
+  "repeatedShots" : 0,
+  "outsideShots" : 0,
+  "hitsOnBoats" : [ ],
+  "missedShots" : 3
+}
+
+[ {
+  "row" : "D",
+  "column" : 4
+}, {
+  "row" : "B",
+  "column" : 5
+}, {
+  "row" : "A",
+  "column" : 6
+} ]
+
+Estado da Frota: 6 a flutuar, 5 afundados!
+
+     1 2 3 4 5 6 7 8 9 10
+   +---------------------+
+ A | o o o - * o . # # . |
+ B | . - o o o - o - - . |
+ C | o - * * * * - * - . |
+ D | o o - o o - - o - . |
+ E | * - * * - . . . . . |
+ F | * o - - - o . . . . |
+ G | # o o o . . # * * o |
+ H | . o * * * o - o - . |
+ I | # o . # . - * * o # |
+ J | o o o * o - o - - . |
+   +---------------------+
+
+> rajada C2 E5 G5
+Demoraste 00:38 na tua 16ª jogada
+Move{number=17, shots=3, results=3}
+Jogada nº17 -> 3 tiros válidos: 3 tiros na água
+{
+  "validShots" : 3,
+  "sunkBoats" : [ ],
+  "repeatedShots" : 0,
+  "outsideShots" : 0,
+  "hitsOnBoats" : [ ],
+  "missedShots" : 3
+}
+
+[ {
+  "row" : "C",
+  "column" : 2
+}, {
+  "row" : "E",
+  "column" : 5
+}, {
+  "row" : "G",
+  "column" : 5
+} ]
+
+Estado da Frota: 6 a flutuar, 5 afundados!
+
+     1 2 3 4 5 6 7 8 9 10
+   +---------------------+
+ A | o o o - * o . # # . |
+ B | . - o o o - o - - . |
+ C | o o * * * * - * - . |
+ D | o o - o o - - o - . |
+ E | * - * * o . . . . . |
+ F | * o - - - o . . . . |
+ G | # o o o o . # * * o |
+ H | . o * * * o - o - . |
+ I | # o . # . - * * o # |
+ J | o o o * o - o - - . |
+   +---------------------+
+
+> rajada A4 J6 E8
+Demoraste 00:40 na tua 17ª jogada
+Move{number=18, shots=3, results=3}
+Jogada nº18 -> 3 tiros válidos: 3 tiros na água
+{
+  "validShots" : 3,
+  "sunkBoats" : [ ],
+  "repeatedShots" : 0,
+  "outsideShots" : 0,
+  "hitsOnBoats" : [ ],
+  "missedShots" : 3
+}
+
+[ {
+  "row" : "A",
+  "column" : 4
+}, {
+  "row" : "J",
+  "column" : 6
+}, {
+  "row" : "E",
+  "column" : 8
+} ]
+
+Estado da Frota: 6 a flutuar, 5 afundados!
+
+     1 2 3 4 5 6 7 8 9 10
+   +---------------------+
+ A | o o o o * o . # # . |
+ B | . - o o o - o - - . |
+ C | o o * * * * - * - . |
+ D | o o - o o - - o - . |
+ E | * - * * o . . o . . |
+ F | * o - - - o . . . . |
+ G | # o o o o . # * * o |
+ H | . o * * * o - o - . |
+ I | # o . # . - * * o # |
+ J | o o o * o o o - - . |
+   +---------------------+
+
+> rajada D3 F8 I10
+Demoraste 00:50 na tua 18ª jogada
+Move{number=19, shots=3, results=3}
+Jogada nº19 -> 3 tiros válidos: 1 Barca ao fundo + 2 tiros na água
+{
+  "validShots" : 3,
+  "sunkBoats" : [ {
+    "count" : 1,
+    "type" : "Barca"
+  } ],
+  "repeatedShots" : 0,
+  "outsideShots" : 0,
+  "hitsOnBoats" : [ ],
+  "missedShots" : 2
+}
+
+[ {
+  "row" : "D",
+  "column" : 3
+}, {
+  "row" : "F",
+  "column" : 8
+}, {
+  "row" : "I",
+  "column" : 10
+} ]
+
+Estado da Frota: 5 a flutuar, 6 afundados!
+
+     1 2 3 4 5 6 7 8 9 10
+   +---------------------+
+ A | o o o o * o . # # . |
+ B | . - o o o - o - - . |
+ C | o o * * * * - * - . |
+ D | o o o o o - - o - . |
+ E | * - * * o . . o . . |
+ F | * o - - - o . o . . |
+ G | # o o o o . # * * o |
+ H | . o * * * o - o - - |
+ I | # o . # . - * * o * |
+ J | o o o * o o o - - - |
+   +---------------------+
+
+> rajada B2 E7 I5
+Demoraste 01:35 na tua 19ª jogada
+Move{number=20, shots=3, results=3}
+Jogada nº20 -> 3 tiros válidos: 3 tiros na água
+{
+  "validShots" : 3,
+  "sunkBoats" : [ ],
+  "repeatedShots" : 0,
+  "outsideShots" : 0,
+  "hitsOnBoats" : [ ],
+  "missedShots" : 3
+}
+
+[ {
+  "row" : "B",
+  "column" : 2
+}, {
+  "row" : "E",
+  "column" : 7
+}, {
+  "row" : "I",
+  "column" : 5
+} ]
+
+Estado da Frota: 5 a flutuar, 6 afundados!
+
+     1 2 3 4 5 6 7 8 9 10
+   +---------------------+
+ A | o o o o * o . # # . |
+ B | . o o o o - o - - . |
+ C | o o * * * * - * - . |
+ D | o o o o o - - o - . |
+ E | * - * * o . o o . . |
+ F | * o - - - o . o . . |
+ G | # o o o o . # * * o |
+ H | . o * * * o - o - - |
+ I | # o . # o - * * o * |
+ J | o o o * o o o - - - |
+   +---------------------+
+
+> rajada B9 F4 H7
+Demoraste 00:57 na tua 20ª jogada
+Move{number=21, shots=3, results=3}
+Jogada nº21 -> 3 tiros válidos: 3 tiros na água
+{
+  "validShots" : 3,
+  "sunkBoats" : [ ],
+  "repeatedShots" : 0,
+  "outsideShots" : 0,
+  "hitsOnBoats" : [ ],
+  "missedShots" : 3
+}
+
+[ {
+  "row" : "B",
+  "column" : 9
+}, {
+  "row" : "F",
+  "column" : 4
+}, {
+  "row" : "H",
+  "column" : 7
+} ]
+
+Estado da Frota: 5 a flutuar, 6 afundados!
+
+     1 2 3 4 5 6 7 8 9 10
+   +---------------------+
+ A | o o o o * o . # # . |
+ B | . o o o o - o - o . |
+ C | o o * * * * - * - . |
+ D | o o o o o - - o - . |
+ E | * - * * o . o o . . |
+ F | * o - o - o . o . . |
+ G | # o o o o . # * * o |
+ H | . o * * * o o o - - |
+ I | # o . # o - * * o * |
+ J | o o o * o o o - - - |
+   +---------------------+
+
+> rajada C10 F10 I3
+Demoraste 00:44 na tua 21ª jogada
+Move{number=22, shots=3, results=3}
+Jogada nº22 -> 3 tiros válidos: 3 tiros na água
+{
+  "validShots" : 3,
+  "sunkBoats" : [ ],
+  "repeatedShots" : 0,
+  "outsideShots" : 0,
+  "hitsOnBoats" : [ ],
+  "missedShots" : 3
+}
+
+[ {
+  "row" : "C",
+  "column" : 10
+}, {
+  "row" : "F",
+  "column" : 10
+}, {
+  "row" : "I",
+  "column" : 3
+} ]
+
+Estado da Frota: 5 a flutuar, 6 afundados!
+
+     1 2 3 4 5 6 7 8 9 10
+   +---------------------+
+ A | o o o o * o . # # . |
+ B | . o o o o - o - o . |
+ C | o o * * * * - * - o |
+ D | o o o o o - - o - . |
+ E | * - * * o . o o . . |
+ F | * o - o - o . o . o |
+ G | # o o o o . # * * o |
+ H | . o * * * o o o - - |
+ I | # o o # o - * * o * |
+ J | o o o * o o o - - - |
+   +---------------------+
+
+> rajada A7 D7 G6
+Demoraste 00:47 na tua 22ª jogada
+Move{number=23, shots=3, results=3}
+Jogada nº23 -> 3 tiros válidos: 3 tiros na água
+{
+  "validShots" : 3,
+  "sunkBoats" : [ ],
+  "repeatedShots" : 0,
+  "outsideShots" : 0,
+  "hitsOnBoats" : [ ],
+  "missedShots" : 3
+}
+
+[ {
+  "row" : "A",
+  "column" : 7
+}, {
+  "row" : "D",
+  "column" : 7
+}, {
+  "row" : "G",
+  "column" : 6
+} ]
+
+Estado da Frota: 5 a flutuar, 6 afundados!
+
+     1 2 3 4 5 6 7 8 9 10
+   +---------------------+
+ A | o o o o * o o # # . |
+ B | . o o o o - o - o . |
+ C | o o * * * * - * - o |
+ D | o o o o o - o o - . |
+ E | * - * * o . o o . . |
+ F | * o - o - o . o . o |
+ G | # o o o o o # * * o |
+ H | . o * * * o o o - - |
+ I | # o o # o - * * o * |
+ J | o o o * o o o - - - |
+   +---------------------+
+
+> rajada B8 E9 J9
+Demoraste 00:45 na tua 23ª jogada
+Move{number=24, shots=3, results=3}
+Jogada nº24 -> 3 tiros válidos: 3 tiros na água
+{
+  "validShots" : 3,
+  "sunkBoats" : [ ],
+  "repeatedShots" : 0,
+  "outsideShots" : 0,
+  "hitsOnBoats" : [ ],
+  "missedShots" : 3
+}
+
+[ {
+  "row" : "B",
+  "column" : 8
+}, {
+  "row" : "E",
+  "column" : 9
+}, {
+  "row" : "J",
+  "column" : 9
+} ]
+
+Estado da Frota: 5 a flutuar, 6 afundados!
+
+     1 2 3 4 5 6 7 8 9 10
+   +---------------------+
+ A | o o o o * o o # # . |
+ B | . o o o o - o o o . |
+ C | o o * * * * - * - o |
+ D | o o o o o - o o - . |
+ E | * - * * o . o o o . |
+ F | * o - o - o . o . o |
+ G | # o o o o o # * * o |
+ H | . o * * * o o o - - |
+ I | # o o # o - * * o * |
+ J | o o o * o o o - o - |
+   +---------------------+
+
+> rajada A8 D6 H9
+Demoraste 00:28 na tua 24ª jogada
+Move{number=25, shots=3, results=3}
+Jogada nº25 -> 3 tiros válidos: 1 tiro num(a) Caravela + 2 tiros na água
+{
+  "validShots" : 3,
+  "sunkBoats" : [ ],
+  "repeatedShots" : 0,
+  "outsideShots" : 0,
+  "hitsOnBoats" : [ {
+    "hits" : 1,
+    "type" : "Caravela"
+  } ],
+  "missedShots" : 2
+}
+
+[ {
+  "row" : "A",
+  "column" : 8
+}, {
+  "row" : "D",
+  "column" : 6
+}, {
+  "row" : "H",
+  "column" : 9
+} ]
+
+Estado da Frota: 5 a flutuar, 6 afundados!
+
+     1 2 3 4 5 6 7 8 9 10
+   +---------------------+
+ A | o o o o * o o * # . |
+ B | . o o o o - o o o . |
+ C | o o * * * * - * - o |
+ D | o o o o o o o o - . |
+ E | * - * * o . o o o . |
+ F | * o - o - o . o . o |
+ G | # o o o o o # * * o |
+ H | . o * * * o o o o - |
+ I | # o o # o - * * o * |
+ J | o o o * o o o - o - |
+   +---------------------+
+
+> rajada A9 D5 H8
+Demoraste 00:25 na tua 25ª jogada
+Move{number=26, shots=3, results=3}
+Jogada nº26 -> 1 tiro válido: 1 Caravela ao fundo , 2 tiros repetidos
+{
+  "validShots" : 1,
+  "sunkBoats" : [ {
+    "count" : 1,
+    "type" : "Caravela"
+  } ],
+  "repeatedShots" : 2,
+  "outsideShots" : 0,
+  "hitsOnBoats" : [ ],
+  "missedShots" : 0
+}
+
+[ {
+  "row" : "A",
+  "column" : 9
+}, {
+  "row" : "D",
+  "column" : 5
+}, {
+  "row" : "H",
+  "column" : 8
+} ]
+
+Estado da Frota: 4 a flutuar, 7 afundados!
+
+     1 2 3 4 5 6 7 8 9 10
+   +---------------------+
+ A | o o o o * o o * * - |
+ B | . o o o o - o o o - |
+ C | o o * * * * - * - o |
+ D | o o o o o o o o - . |
+ E | * - * * o . o o o . |
+ F | * o - o - o . o . o |
+ G | # o o o o o # * * o |
+ H | . o * * * o o o o - |
+ I | # o o # o - * * o * |
+ J | o o o * o o o - o - |
+   +---------------------+
+
+> rajada A10 E3 J8
+Demoraste 00:32 na tua 26ª jogada
+Move{number=27, shots=3, results=3}
+Jogada nº27 -> 2 tiros válidos: 2 tiros na água, 1 tiro repetido
+{
+  "validShots" : 2,
+  "sunkBoats" : [ ],
+  "repeatedShots" : 1,
+  "outsideShots" : 0,
+  "hitsOnBoats" : [ ],
+  "missedShots" : 2
+}
+
+[ {
+  "row" : "A",
+  "column" : 10
+}, {
+  "row" : "E",
+  "column" : 3
+}, {
+  "row" : "J",
+  "column" : 8
+} ]
+
+Estado da Frota: 4 a flutuar, 7 afundados!
+
+     1 2 3 4 5 6 7 8 9 10
+   +---------------------+
+ A | o o o o * o o * * o |
+ B | . o o o o - o o o - |
+ C | o o * * * * - * - o |
+ D | o o o o o o o o - . |
+ E | * - * * o . o o o . |
+ F | * o - o - o . o . o |
+ G | # o o o o o # * * o |
+ H | . o * * * o o o o - |
+ I | # o o # o - * * o * |
+ J | o o o * o o o o o - |
+   +---------------------+
+
+> [
+  {"row": "B", "column": 7},
+  {"row": "G", "column": 4},
+  {"row": "I", "column": 4}
+]Que comando é esse??? Repete ...
+> Que comando é esse??? Repete ...
+> Que comando é esse??? Repete ...
+> Que comando é esse??? Repete ...
+> Que comando é esse??? Repete ...
+> Que comando é esse??? Repete ...
+> Que comando é esse??? Repete ...
+> Que comando é esse??? Repete ...
+> Que comando é esse??? Repete ...
+> Que comando é esse??? Repete ...
+> Que comando é esse??? Repete ...
+> Que comando é esse??? Repete ...
+> Que comando é esse??? Repete ...
+> rajada B7 G4 I4
+Que comando é esse??? Repete ...
+> Que comando é esse??? Repete ...
+> Que comando é esse??? Repete ...
+> Que comando é esse??? Repete ...
+> rajada B7 G4 I4
+Demoraste 00:39 na tua 27ª jogada
+Move{number=28, shots=3, results=3}
+Jogada nº28 -> 1 tiro válido: 1 Galeao ao fundo , 2 tiros repetidos
+{
+  "validShots" : 1,
+  "sunkBoats" : [ {
+    "count" : 1,
+    "type" : "Galeao"
+  } ],
+  "repeatedShots" : 2,
+  "outsideShots" : 0,
+  "hitsOnBoats" : [ ],
+  "missedShots" : 0
+}
+
+[ {
+  "row" : "B",
+  "column" : 7
+}, {
+  "row" : "G",
+  "column" : 4
+}, {
+  "row" : "I",
+  "column" : 4
+} ]
+
+Estado da Frota: 3 a flutuar, 8 afundados!
+
+     1 2 3 4 5 6 7 8 9 10
+   +---------------------+
+ A | o o o o * o o * * o |
+ B | . o o o o - o o o - |
+ C | o o * * * * - * - o |
+ D | o o o o o o o o - . |
+ E | * - * * o . o o o . |
+ F | * o - o - o . o . o |
+ G | # o o o o o # * * o |
+ H | . o * * * o o o o - |
+ I | # o o * o - * * o * |
+ J | o o o * o o o o o - |
+   +---------------------+
+
+> rajada B3 E6 G7
+Demoraste 00:29 na tua 28ª jogada
+Move{number=29, shots=3, results=3}
+Jogada nº29 -> 2 tiros válidos: 1 Nau ao fundo + 1 tiro na água, 1 tiro repetido
+{
+  "validShots" : 2,
+  "sunkBoats" : [ {
+    "count" : 1,
+    "type" : "Nau"
+  } ],
+  "repeatedShots" : 1,
+  "outsideShots" : 0,
+  "hitsOnBoats" : [ ],
+  "missedShots" : 1
+}
+
+[ {
+  "row" : "B",
+  "column" : 3
+}, {
+  "row" : "E",
+  "column" : 6
+}, {
+  "row" : "G",
+  "column" : 7
+} ]
+
+Estado da Frota: 2 a flutuar, 9 afundados!
+
+     1 2 3 4 5 6 7 8 9 10
+   +---------------------+
+ A | o o o o * o o * * o |
+ B | . o o o o - o o o - |
+ C | o o * * * * - * - o |
+ D | o o o o o o o o - . |
+ E | * - * * o o o o o . |
+ F | * o - o - o - o - o |
+ G | # o o o o o * * * o |
+ H | . o * * * o o o o - |
+ I | # o o * o - * * o * |
+ J | o o o * o o o o o - |
+   +---------------------+
+
+> relatorio
+14:21:07.997 [main] WARN org.apache.pdfbox.pdmodel.font.FileSystemFontProvider -- 369 new fonts found, font cache will be re-built
+14:21:08.002 [main] WARN org.apache.pdfbox.pdmodel.font.FileSystemFontProvider -- Building on-disk font cache, this may take a while
+14:21:09.410 [main] WARN org.apache.pdfbox.pdmodel.font.FileSystemFontProvider -- Finished building on-disk font cache, found 392 fonts
+Relatorio exportado para relatorio-battleship.pdf
+> desisto
+Bons ventos!
+
+Process finished with exit code 0
