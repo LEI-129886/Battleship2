@@ -4,10 +4,15 @@ import java.io.IOException;
 import java.nio.file.InvalidPathException;
 import java.nio.file.Path;
 import java.util.Scanner;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.io.IOException;
 
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.jetbrains.annotations.NotNull;
+import restserver.GameReportPdfGenerator;
+import restserver.GameSession;
 
 /**
  * The type Tasks.
@@ -35,6 +40,7 @@ public class Tasks {
 	private static final String MAPA = "mapa";
 	private static final String STATUS = "estado";
 	private static final String SIMULA = "simula";
+	private static final String RELATORIO = "relatorio";
 	private static final String GUARDAR = "guardar";
 	private static final String CARREGAR = "carregar";
 
@@ -98,9 +104,12 @@ public class Tasks {
 
 						if (game.getRemainingShips() == 0) {
 							game.over();
-							System.exit(0);
 						}
 					}
+					break;
+				case RELATORIO:
+					if (game != null)
+						exportReport(game);
 					break;
 				case TIROS:
 					if (game != null)
@@ -163,11 +172,37 @@ public class Tasks {
 		System.out.println("- " + MAPA + ": Exibe o mapa da frota.");
 		System.out.println("- " + RAJADA + ": Realiza uma rajada de disparos.");
 		System.out.println("- " + SIMULA + ": Simula um jogo completo.");
+		System.out.println("- " + RELATORIO + ": Exporta o historico da partida para PDF.");
 		System.out.println("- " + TIROS + ": Lista os tiros válidos realizados (* = tiro em navio, o = tiro na água)");
 		System.out.println("- " + GUARDAR + " <caminho>: Guarda o jogo num ficheiro JSON.");
 		System.out.println("- " + CARREGAR + " <caminho>: Carrega um jogo de um ficheiro JSON.");
 		System.out.println("- " + DESISTIR + ": Encerra o jogo.");
 		System.out.println("===============================================================");
+	}
+
+	private static void exportReport(IGame game) {
+		GameSession reportSession = new GameSession("console-" + System.currentTimeMillis(),
+				"Jogador", "", game);
+		for (IMove move : game.getAlienMoves()) {
+			java.util.List<String> outcomes = new java.util.ArrayList<>();
+			for (IGame.ShotResult result : move.getShotResults()) {
+				if (!result.valid()) outcomes.add("INVALID");
+				else if (result.repeated()) outcomes.add("REPEATED");
+				else if (result.ship() == null) outcomes.add("Agua");
+				else if (result.sunk()) outcomes.add("Afundou");
+				else outcomes.add("Tiro");
+			}
+			reportSession.recordMove("IA", move.getShots(), outcomes);
+		}
+		if (game.getRemainingShips() == 0)
+			reportSession.markAiWins();
+
+		try {
+			Files.write(Path.of("relatorio-battleship.pdf"), GameReportPdfGenerator.generate(reportSession));
+			System.out.println("Relatorio exportado para relatorio-battleship.pdf");
+		} catch (IOException exception) {
+			System.out.println("Nao foi possivel exportar o relatorio: " + exception.getMessage());
+		}
 	}
 
 	private static Path readSavePath(Scanner in) {

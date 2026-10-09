@@ -99,6 +99,18 @@ Send exactly **3 shots** per turn. Positions use classic notation:
 
 When `gameStatus` is `"GAME_OVER"`, `winner` will be `"STUDENT_WINS"` or `"AI_WINS"`.
 
+### Game report — PDF `GET /game/{gameId}/report`
+
+The report can be downloaded at any time, including after `GAME_OVER`:
+
+```bash
+curl -OJ http://localhost:8080/game/GAME_ID/report
+```
+
+The PDF contains the game date and time, player identifiers, the final result
+(`Vitoria` or `Derrota`), and the chronological table of turns, coordinates,
+players, and outcomes (`Agua`, `Tiro`, or `Afundou`).
+
 ---
 
 ### m2a — AI's shots  `POST {callbackUrl}/game/{gameId}/shots`
