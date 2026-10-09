@@ -4,6 +4,8 @@ import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.SerializationFeature;
 
+import java.io.IOException;
+import java.nio.file.Path;
 import java.util.*;
 
 public class Game implements IGame
@@ -155,6 +157,18 @@ public class Game implements IGame
 	private static final char SHOT_SHIP_MARKER = '*';
 	private static final char SHOT_WATER_MARKER = 'o';
 	private static final char SHIP_ADJACENT_MARKER = '-';
+	private static final int SAVE_FORMAT_VERSION = 1;
+	private static final ObjectMapper SAVE_MAPPER = new ObjectMapper()
+			.enable(SerializationFeature.INDENT_OUTPUT);
+
+	private record PositionData(int row, int column) {}
+	private record ShipData(String category, Compass bearing, PositionData position, List<PositionData> hits) {}
+	private record ShotResultData(boolean valid, boolean repeated, String fleet, Integer shipIndex, boolean sunk) {}
+	private record MoveData(int number, List<PositionData> shots, List<ShotResultData> results) {}
+	private record SaveData(int version, List<ShipData> myFleet, List<ShipData> alienFleet,
+						 List<MoveData> alienMoves, List<MoveData> myMoves,
+						 int countInvalidShots, int countRepeatedShots, int countHits,
+						 int countSinks, int moveNumber) {}
 
 	//------------------------------------------------------------------
 	private final IFleet myFleet;
@@ -184,6 +198,160 @@ public class Game implements IGame
 		this.countRepeatedShots = 0;
 		this.countHits = 0;
 		this.countSinks = 0;
+	}
+
+	/** Saves the complete game state as formatted JSON at the given path. */
+	public void save(Path file) throws IOException {
+		Objects.requireNonNull(file, "Save path must not be null");
+		SAVE_MAPPER.writeValue(file.toFile(), createSaveData());
+	}
+
+	/** Loads a game previously written by {@link #save(Path)}. */
+	public static Game load(Path file) throws IOException {
+		Objects.requireNonNull(file, "Save path must not be null");
+		SaveData data = SAVE_MAPPER.readValue(file.toFile(), SaveData.class);
+		return restoreSaveData(data);
+	}
+
+	private SaveData createSaveData() {
+		return new SaveData(SAVE_FORMAT_VERSION, saveFleet(myFleet), saveFleet(alienFleet),
+				saveMoves(alienMoves), saveMoves(myMoves), countInvalidShots, countRepeatedShots,
+				countHits, countSinks, moveNumber);
+	}
+
+	private static List<ShipData> saveFleet(IFleet fleet) {
+		List<ShipData> ships = new ArrayList<>();
+		for (IShip ship : fleet.getShips()) {
+			List<PositionData> hits = new ArrayList<>();
+			for (IPosition position : ship.getPositions()) {
+				if (position.isHit())
+					hits.add(new PositionData(position.getRow(), position.getColumn()));
+			}
+			IPosition origin = ship.getPosition();
+			ships.add(new ShipData(ship.getCategory(), ship.getBearing(),
+					new PositionData(origin.getRow(), origin.getColumn()), hits));
+		}
+		return ships;
+	}
+
+	private List<MoveData> saveMoves(List<IMove> moves) {
+		List<MoveData> savedMoves = new ArrayList<>();
+		for (IMove move : moves) {
+			List<PositionData> shots = new ArrayList<>();
+			for (IPosition shot : move.getShots())
+				shots.add(new PositionData(shot.getRow(), shot.getColumn()));
+
+			List<ShotResultData> results = new ArrayList<>();
+			for (ShotResult result : move.getShotResults()) {
+				String fleetName = null;
+				Integer shipIndex = null;
+				if (result.ship() != null) {
+					shipIndex = indexOfShip(myFleet, result.ship());
+					if (shipIndex >= 0)
+						fleetName = "my";
+					else {
+						shipIndex = indexOfShip(alienFleet, result.ship());
+						if (shipIndex >= 0)
+							fleetName = "alien";
+					}
+					if (fleetName == null)
+						throw new IllegalStateException("Move result references a ship outside this game");
+				}
+				results.add(new ShotResultData(result.valid(), result.repeated(), fleetName, shipIndex, result.sunk()));
+			}
+			savedMoves.add(new MoveData(move.getNumber(), shots, results));
+		}
+		return savedMoves;
+	}
+
+	private static int indexOfShip(IFleet fleet, IShip target) {
+		for (int index = 0; index < fleet.getShips().size(); index++)
+			if (fleet.getShips().get(index) == target)
+				return index;
+		return -1;
+	}
+
+	private static Game restoreSaveData(SaveData data) throws IOException {
+		if (data == null || data.version() != SAVE_FORMAT_VERSION)
+			throw new IOException("Unsupported or missing game save format version");
+		if (data.moveNumber() < 1 || data.countInvalidShots() < 0 || data.countRepeatedShots() < 0
+				|| data.countHits() < 0 || data.countSinks() < 0)
+			throw new IOException("Game save contains invalid counters");
+
+		try {
+			IFleet myFleet = restoreFleet(data.myFleet());
+			IFleet alienFleet = restoreFleet(data.alienFleet());
+			Game game = new Game(myFleet);
+			game.alienFleet.getShips().addAll(alienFleet.getShips());
+			game.alienMoves.addAll(restoreMoves(data.alienMoves(), myFleet, alienFleet));
+			game.myMoves.addAll(restoreMoves(data.myMoves(), myFleet, alienFleet));
+			game.countInvalidShots = data.countInvalidShots();
+			game.countRepeatedShots = data.countRepeatedShots();
+			game.countHits = data.countHits();
+			game.countSinks = data.countSinks();
+			game.moveNumber = data.moveNumber();
+			return game;
+		} catch (IllegalArgumentException | NullPointerException exception) {
+			throw new IOException("Game save contains invalid state", exception);
+		}
+	}
+
+	private static IFleet restoreFleet(List<ShipData> savedShips) throws IOException {
+		if (savedShips == null)
+			throw new IOException("Game save is missing a fleet");
+		IFleet fleet = new Fleet();
+		for (ShipData savedShip : savedShips) {
+			if (savedShip == null || savedShip.category() == null || savedShip.bearing() == null
+					|| savedShip.position() == null || savedShip.hits() == null)
+				throw new IOException("Game save contains an incomplete ship");
+			Ship ship = Ship.buildShip(savedShip.category().toLowerCase(Locale.ROOT), savedShip.bearing(),
+					new Position(savedShip.position().row(), savedShip.position().column()));
+			if (ship == null || !fleet.addShip(ship))
+				throw new IOException("Game save contains an invalid ship");
+			for (PositionData hit : savedShip.hits()) {
+				if (hit == null || !ship.occupies(new Position(hit.row(), hit.column())))
+					throw new IOException("Game save contains an invalid ship hit");
+				ship.shoot(new Position(hit.row(), hit.column()));
+			}
+		}
+		return fleet;
+	}
+
+	private static List<IMove> restoreMoves(List<MoveData> savedMoves, IFleet myFleet, IFleet alienFleet) throws IOException {
+		if (savedMoves == null)
+			throw new IOException("Game save is missing move history");
+		List<IMove> moves = new ArrayList<>();
+		for (MoveData savedMove : savedMoves) {
+			if (savedMove == null || savedMove.shots() == null || savedMove.results() == null)
+				throw new IOException("Game save contains an incomplete move");
+			List<IPosition> shots = new ArrayList<>();
+			for (PositionData shot : savedMove.shots()) {
+				if (shot == null)
+					throw new IOException("Game save contains an invalid shot");
+				shots.add(new Position(shot.row(), shot.column()));
+			}
+			List<ShotResult> results = new ArrayList<>();
+			for (ShotResultData result : savedMove.results()) {
+				if (result == null)
+					throw new IOException("Game save contains an invalid shot result");
+				IShip ship = null;
+				if (result.fleet() != null && result.shipIndex() != null) {
+					IFleet fleet = switch (result.fleet()) {
+						case "my" -> myFleet;
+						case "alien" -> alienFleet;
+						default -> throw new IOException("Game save references an unknown fleet");
+					};
+					if (result.shipIndex() < 0 || result.shipIndex() >= fleet.getShips().size())
+						throw new IOException("Game save references an unknown ship");
+					ship = fleet.getShips().get(result.shipIndex());
+				} else if (result.fleet() != null || result.shipIndex() != null) {
+					throw new IOException("Game save contains an incomplete ship reference");
+				}
+				results.add(new ShotResult(result.valid(), result.repeated(), ship, result.sunk()));
+			}
+			moves.add(new Move(savedMove.number(), shots, results));
+		}
+		return moves;
 	}
 
 	@Override
