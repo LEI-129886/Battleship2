@@ -1,5 +1,8 @@
 package battleship;
 
+import java.io.IOException;
+import java.nio.file.InvalidPathException;
+import java.nio.file.Path;
 import java.util.Scanner;
 import java.nio.file.Files;
 import java.nio.file.Path;
@@ -38,6 +41,8 @@ public class Tasks {
 	private static final String STATUS = "estado";
 	private static final String SIMULA = "simula";
 	private static final String RELATORIO = "relatorio";
+	private static final String GUARDAR = "guardar";
+	private static final String CARREGAR = "carregar";
 
 	/**
 	 * This task also tests the fighting element of a round of three shots
@@ -45,7 +50,7 @@ public class Tasks {
 	public static void menu() {
 
 		IFleet myFleet = null;
-		IGame game = null;
+		Game game = null;
 		menuHelp();
 
 		System.out.print("> ");
@@ -110,6 +115,39 @@ public class Tasks {
 					if (game != null)
 						game.printMyBoard(true, true);
 					break;
+				case GUARDAR: {
+					Path file = readSavePath(in);
+					if (file != null) {
+						if (game == null) {
+							System.out.println("Não existe um jogo para guardar.");
+						} else {
+							try {
+								game.save(file);
+								System.out.println("Jogo guardado em " + file);
+							} catch (IOException exception) {
+								LOGGER.error("Falha ao guardar o jogo em {}", file, exception);
+								System.out.println("Não foi possível guardar o jogo.");
+							}
+						}
+					}
+					break;
+				}
+				case CARREGAR: {
+					Path file = readSavePath(in);
+					if (file != null) {
+						try {
+							Game loadedGame = Game.load(file);
+							game = loadedGame;
+							myFleet = loadedGame.getMyFleet();
+							System.out.println("Jogo carregado de " + file);
+							game.printMyBoard(false, true);
+						} catch (IOException exception) {
+							LOGGER.error("Falha ao carregar o jogo de {}", file, exception);
+							System.out.println("Não foi possível carregar o jogo.");
+						}
+					}
+					break;
+				}
                 case AJUDA:
                     menuHelp();
                     break;
@@ -136,6 +174,8 @@ public class Tasks {
 		System.out.println("- " + SIMULA + ": Simula um jogo completo.");
 		System.out.println("- " + RELATORIO + ": Exporta o historico da partida para PDF.");
 		System.out.println("- " + TIROS + ": Lista os tiros válidos realizados (* = tiro em navio, o = tiro na água)");
+		System.out.println("- " + GUARDAR + " <caminho>: Guarda o jogo num ficheiro JSON.");
+		System.out.println("- " + CARREGAR + " <caminho>: Carrega um jogo de um ficheiro JSON.");
 		System.out.println("- " + DESISTIR + ": Encerra o jogo.");
 		System.out.println("===============================================================");
 	}
@@ -162,6 +202,17 @@ public class Tasks {
 			System.out.println("Relatorio exportado para relatorio-battleship.pdf");
 		} catch (IOException exception) {
 			System.out.println("Nao foi possivel exportar o relatorio: " + exception.getMessage());
+	private static Path readSavePath(Scanner in) {
+		String path = in.nextLine().trim();
+		if (path.isEmpty()) {
+			System.out.println("Indique o caminho do ficheiro JSON.");
+			return null;
+		}
+		try {
+			return Path.of(path);
+		} catch (InvalidPathException exception) {
+			System.out.println("O caminho indicado não é válido.");
+			return null;
 		}
 	}
 	/**

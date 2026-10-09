@@ -73,6 +73,17 @@ Hits are calculated based on the intersection of the shot vector and the ship's 
 
 ## 📚 Documentation
 
+### Saving and Loading
+
+Games can be saved to and restored from a JSON file, including fleets, hit positions, move history, and game counters:
+
+```bash
+Path saveFile = Path.of("game.json");
+game.save(saveFile);
+
+Game restoredGame = Game.load(saveFile);
+```
+
 You can access the generated Javadoc here:
 
 👉 [Battleship2 API Documentation](https://britoeabreu.github.io/Battleship2/)
@@ -95,7 +106,6 @@ public class Ship {
 ### Design Patterns Used:
 - **Strategy Pattern:** For different AI difficulty levels.
 - **Observer Pattern:** To update the UI when a ship is hit.
-</details>
 
 ### Logic Flow
 ```mermaid
