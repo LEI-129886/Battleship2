@@ -55,9 +55,9 @@ public class Tasks {
 		IFleet myFleet = null;
 		Game game = null;
 		menuHelp();
-		int numberturns=0;
-		StopWatch playWach= new StopWatch();
-		playWach.reset();
+		int numberturns=1;
+		StopWatch playWatch= new StopWatch();
+		playWatch.reset();
 
 		System.out.print("> ");
 		Scanner in = new Scanner(System.in);
@@ -86,17 +86,17 @@ public class Tasks {
 					break;
 				case RAJADA:
 					if (game != null) {
-						if(numberturns>0){
-							playWach.stop();
-							String time = DurationFormatUtils.formatDuration(playWach.getTime(), "mm:ss");
+						if(numberturns>1){
+							playWatch.stop();
+							String time = DurationFormatUtils.formatDuration(playWatch.getTime(), "mm:ss");
 							System.out.println("Demoraste "+time+" na tua "+ numberturns+"ª jogada");
 						}
-						playWach.reset();
+						playWatch.reset();
 						numberturns++;
 						game.readEnemyFire(in);
 						myFleet.printStatus();
 						game.printMyBoard(true, false);
-						playWach.start();
+						playWatch.start();
 
 						if (game.getRemainingShips() == 0) {
 							game.over();
