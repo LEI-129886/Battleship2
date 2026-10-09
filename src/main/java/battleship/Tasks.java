@@ -8,9 +8,12 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 import java.io.IOException;
 
+import org.apache.commons.lang3.time.DurationFormatUtils;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.jetbrains.annotations.NotNull;
+import org.apache.commons.lang3.time.StopWatch;
+
 import restserver.GameReportPdfGenerator;
 import restserver.GameSession;
 
@@ -52,6 +55,9 @@ public class Tasks {
 		IFleet myFleet = null;
 		Game game = null;
 		menuHelp();
+		int numberturns=0;
+		StopWatch playWach= new StopWatch();
+		playWach.reset();
 
 		System.out.print("> ");
 		Scanner in = new Scanner(System.in);
@@ -63,6 +69,7 @@ public class Tasks {
 					myFleet = Fleet.createRandom();
 					game = new Game(myFleet);
 					game.printMyBoard(false, true);
+					System.out.println("O seu jogo começa agora.");
 					break;
 				case LEFROTA:
 					myFleet = buildFleet(in);
@@ -79,9 +86,17 @@ public class Tasks {
 					break;
 				case RAJADA:
 					if (game != null) {
+						if(numberturns>0){
+							playWach.stop();
+							String time = DurationFormatUtils.formatDuration(playWach.getTime(), "mm:ss");
+							System.out.println("Demoraste "+time+" na tua "+ numberturns+"ª jogada");
+						}
+						playWach.reset();
+						numberturns++;
 						game.readEnemyFire(in);
 						myFleet.printStatus();
 						game.printMyBoard(true, false);
+						playWach.start();
 
 						if (game.getRemainingShips() == 0) {
 							game.over();
