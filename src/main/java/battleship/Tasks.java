@@ -202,6 +202,9 @@ public class Tasks {
 			System.out.println("Relatorio exportado para relatorio-battleship.pdf");
 		} catch (IOException exception) {
 			System.out.println("Nao foi possivel exportar o relatorio: " + exception.getMessage());
+		}
+	}
+
 	private static Path readSavePath(Scanner in) {
 		String path = in.nextLine().trim();
 		if (path.isEmpty()) {
