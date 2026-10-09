@@ -70,11 +70,14 @@ public class Tasks {
 					game = new Game(myFleet);
 					game.printMyBoard(false, true);
 					System.out.println("O seu jogo começa agora.");
+					playWatch.start();
 					break;
 				case LEFROTA:
 					myFleet = buildFleet(in);
 					game = new Game(myFleet);
 					game.printMyBoard(false, true);
+					System.out.println("O seu jogo começa agora.");
+					playWatch.start();
 					break;
 				case STATUS:
 					if (myFleet != null)
@@ -86,11 +89,10 @@ public class Tasks {
 					break;
 				case RAJADA:
 					if (game != null) {
-						if(numberturns>1){
-							playWatch.stop();
-							String time = DurationFormatUtils.formatDuration(playWatch.getTime(), "mm:ss");
-							System.out.println("Demoraste "+time+" na tua "+ numberturns+"ª jogada");
-						}
+						playWatch.stop();
+						String time = DurationFormatUtils.formatDuration(playWatch.getTime(), "mm:ss");
+						System.out.println("Demoraste "+time+" na tua "+ numberturns+"ª jogada");
+
 						playWatch.reset();
 						numberturns++;
 						game.readEnemyFire(in);
