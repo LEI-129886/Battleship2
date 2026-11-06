@@ -1,5 +1,5 @@
-# 125321
-name: Qodana smell gate 125321
+#125321
+name: Qodana code smell 125321
 on:
   pull_request:
   push:
@@ -8,37 +8,16 @@ on:
 
 permissions:
   contents: read
-  checks: write
-  pull-requests: write
 
 jobs:
-  qodana:
+  long-parameter-lists:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
-        with:
-          ref: ${{ github.event.pull_request.head.sha || github.sha }}
-          fetch-depth: 0
-      - name: Show changed files
-        run: |
-          if [ "${{ github.event_name }}" = "pull_request" ]; then
-            BASE=${{ github.event.pull_request.base.sha }}
-            HEAD=${{ github.event.pull_request.head.sha }}
-          else
-            BASE=${{ github.event.before }}
-            HEAD=${{ github.sha }}
-          fi
-          echo "Comparing $BASE...$HEAD"
-          git diff --name-status "$BASE" "$HEAD"
 
-      - uses: JetBrains/qodana-action@v2026.2
+      - uses: actions/setup-python@v5
         with:
-          args: --config qodana-125321.yaml
-          pr-mode: true
-          use-annotations: true
-          post-pr-comment: true
-      - uses: actions/upload-artifact@v4
-        if: always()
-        with:
-          name: qodana-results
-          path: ${{ runner.temp }}/qodana/results
+          python-version: "3.12"
+
+      - name: Fail on methods/constructors with more than 4 parameters
+        run: python .github/scripts/check_params.py --max 4 --exclude "src/test,generated"
