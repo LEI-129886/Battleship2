@@ -1,0 +1,5 @@
+name: feature-envy-only
+baseProfile: empty
+inspections:
+  - inspection: FeatureEnvy
+    enabled: true
