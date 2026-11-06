@@ -4,5 +4,6 @@ baseProfile: empty
 inspections:
   - inspection: MethodWithTooManyParameters
     enabled: true
+    severity: WARNING
     options:
       m_limit: 4
