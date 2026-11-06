@@ -24,5 +24,3 @@ jobs:
           args: --config qodana-129886.yaml
           pr-mode: true
           upload-result: true
-        env:
-          QODANA_TOKEN: ${{ secrets.QODANA_TOKEN }}
