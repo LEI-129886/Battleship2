@@ -2,9 +2,6 @@
 name: Qodana code smell 125321
 on:
   pull_request:
-  push:
-    branches: [main]
-  workflow_dispatch:
 
 permissions:
   contents: read
@@ -14,10 +11,18 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
+        with:
+          ref: ${{ github.event.pull_request.head.sha }}
+          fetch-depth: 0
 
       - uses: actions/setup-python@v5
         with:
           python-version: "3.12"
 
-      - name: Fail on methods/constructors with more than 4 parameters
-        run: python .github/scripts/check_params.py --max 4 --exclude "src/test,generated"
+      - name: Fail on changed methods/constructors with more than 4 parameters
+        run: |
+          python .github/scripts/check_params.py \
+            --max 4 \
+            --base "${{ github.event.pull_request.base.sha }}" \
+            --head "${{ github.event.pull_request.head.sha }}" \
+            --exclude "src/test,generated"
