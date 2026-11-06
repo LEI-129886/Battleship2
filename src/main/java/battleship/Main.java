@@ -20,4 +20,7 @@ public class Main
 	public void teste(int a, int b, int c, int d, int e){
 		System.out.println(a + b + c + d + e);
 	}
+	public void teste2(int a, int b, int c, int d, int e){
+		System.out.println(a + b + c + d + e);
+	}
 }
