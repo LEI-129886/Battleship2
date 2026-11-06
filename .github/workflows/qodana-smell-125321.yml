@@ -1,13 +1,19 @@
-#125321
-name: Qodana code smell 125321
+# 125321 - Miguel Santos
+name: Qodana smell gate 125321
+
 on:
   pull_request:
+  push:
+    branches: [main]
+  workflow_dispatch:
 
 permissions:
   contents: read
+  checks: write
+  pull-requests: write
 
 jobs:
-  long-parameter-lists:
+  qodana:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
@@ -15,14 +21,8 @@ jobs:
           ref: ${{ github.event.pull_request.head.sha }}
           fetch-depth: 0
 
-      - uses: actions/setup-python@v5
+      - uses: JetBrains/qodana-action@v2026.2
         with:
-          python-version: "3.12"
-
-      - name: Fail on changed methods/constructors with more than 4 parameters
-        run: |
-          python .github/scripts/check_params.py \
-            --max 4 \
-            --base "${{ github.event.pull_request.base.sha }}" \
-            --head "${{ github.event.pull_request.head.sha }}" \
-            --exclude "src/test,generated"
+          args: --config qodana-125321.yaml
+          use-annotations: true
+          post-pr-comment: true
