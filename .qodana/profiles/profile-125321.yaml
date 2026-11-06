@@ -1,9 +1,8 @@
 # 125321
-profile:
-  base:
-    name: empty
-  inspections:
-    - inspection: MethodWithTooManyParameters
-      enabled: true
-      options:
-        m_limit: 4
+name: profile-125321
+baseProfile: empty
+inspections:
+  - inspection: MethodWithTooManyParameters
+    enabled: true
+    options:
+      m_limit: 4
