@@ -16,4 +16,8 @@ public class Main
 
 		Tasks.menu();
     }
+
+	public void teste(int a, int b, int c, int d, int e){
+		
+	}
 }
