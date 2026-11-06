@@ -3,7 +3,7 @@ version: "1.0"
 linter: jetbrains/qodana-jvm-community:2026.2
 
 profile:
-  path: .qodana/profile-129886.yaml
+  path: .qodana/profiles/profile-129886.yaml
 
 failureConditions:
   severityThresholds:
