@@ -6,10 +6,12 @@ on:
   push:
     branches: [main]
   workflow_dispatch:
+
 permissions:
   contents: read
   checks: write
   pull-requests: write
+
 jobs:
   qodana:
     runs-on: ubuntu-latest
@@ -17,11 +19,10 @@ jobs:
       - uses: actions/checkout@v4
         with:
           ref: ${{ github.event.pull_request.head.sha }}
-          fetch-depth: 0   # necessário para o modo pull request
+          fetch-depth: 0
+
       - uses: JetBrains/qodana-action@v2026.2
-        env:
-          QODANA_TOKEN: ${{ secrets.QODANA_TOKEN }}
         with:
           args: --config qodana-129886.yaml
-          pr-mode: true
           use-annotations: true
+          post-pr-comment: true
