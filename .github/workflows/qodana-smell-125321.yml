@@ -19,6 +19,17 @@ jobs:
         with:
           ref: ${{ github.event.pull_request.head.sha || github.sha }}
           fetch-depth: 0
+      - name: Show changed files
+        run: |
+          if [ "${{ github.event_name }}" = "pull_request" ]; then
+            BASE=${{ github.event.pull_request.base.sha }}
+            HEAD=${{ github.event.pull_request.head.sha }}
+          else
+            BASE=${{ github.event.before }}
+            HEAD=${{ github.sha }}
+          fi
+          echo "Comparing $BASE...$HEAD"
+          git diff --name-status "$BASE" "$HEAD"
 
       - uses: JetBrains/qodana-action@v2026.2
         with:
@@ -26,3 +37,8 @@ jobs:
           pr-mode: true
           use-annotations: true
           post-pr-comment: true
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: qodana-results
+          path: ${{ runner.temp }}/qodana/results
