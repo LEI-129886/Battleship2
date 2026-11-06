@@ -26,4 +26,8 @@ public class Main
 	public void teste3(int a, int b, int c, int d, int e, int f){
 		System.out.println(a + b + c + d + e + f);
 	}
+	public void teste4(int a, int b, int c, int d, int e, int f){
+		System.out.println(a + b + c + d + e + f);
+	}
+
 }
