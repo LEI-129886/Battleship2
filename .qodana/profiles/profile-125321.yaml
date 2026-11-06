@@ -1,0 +1,9 @@
+# 125321
+profile:
+  base:
+    name: empty
+  inspections:
+    - inspection: MethodWithTooManyParameters
+      enabled: true
+      options:
+        m_limit: 4
