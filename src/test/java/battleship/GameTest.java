@@ -1,6 +1,7 @@
 package battleship;
 
 import java.util.List;
+import java.nio.file.Path;
 
 import org.junit.jupiter.api.*;
 import static org.junit.jupiter.api.Assertions.*;
@@ -98,6 +99,29 @@ public class GameTest {
 		assertEquals(2, game.getRemainingShips(), "Two ships were created!");
 		ship2.sink();
 		assertEquals(1, game.getRemainingShips(), "Remaining ships count should be 1 after sinking one of two ships.");
+	}
+
+	@Test
+	void saveAndLoadPreservesGameAndAllowsPlayToContinue(@org.junit.jupiter.api.io.TempDir Path tempDir) throws Exception {
+		Fleet fleet = new Fleet();
+		fleet.addShip(new Barge(Compass.NORTH, new Position(1, 1)));
+		game = new Game(fleet);
+		game.fireShots(List.of(new Position(1, 1), new Position(2, 2), new Position(3, 3)));
+		Path saveFile = tempDir.resolve("game.json");
+
+		game.save(saveFile);
+		Game loaded = Game.load(saveFile);
+
+		assertEquals(1, loaded.getAlienMoves().size());
+		assertEquals(1, loaded.getHits());
+		assertEquals(1, loaded.getSunkShips());
+		assertEquals(0, loaded.getRemainingShips());
+		assertTrue(loaded.repeatedShot(new Position(1, 1)));
+		assertEquals("Barca", loaded.getAlienMoves().get(0).getShotResults().get(0).ship().getCategory());
+
+		loaded.fireShots(List.of(new Position(4, 4), new Position(5, 5), new Position(6, 6)));
+		assertEquals(2, loaded.getAlienMoves().size());
+		assertEquals(2, loaded.getAlienMoves().get(1).getNumber());
 	}
 
 }

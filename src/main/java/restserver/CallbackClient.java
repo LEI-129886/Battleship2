@@ -98,6 +98,10 @@ public class CallbackClient {
 
 		// ── 4. Record the AI's move in the game (for strategy state tracking) ─
 		recordAiMove(session.getGame(), aiShots, m2b);
+		if (m2b.results != null) {
+			session.recordMove("IA", aiShots, m2b.results.stream()
+					.map(result -> reportOutcome(result.outcome)).toList());
+		}
 
 		// ── 5. Check if AI won ────────────────────────────────────────────────
 		if (m2b.shipsRemaining == 0 || "GAME_OVER".equals(m2b.gameStatus)) {
@@ -107,6 +111,15 @@ public class CallbackClient {
 		}
 
 		return true;
+	}
+
+	private String reportOutcome(String outcome) {
+		return switch (outcome) {
+			case "MISS" -> "Agua";
+			case "HIT" -> "Tiro";
+			case "SUNK" -> "Afundou";
+			default -> outcome;
+		};
 	}
 
 	/**

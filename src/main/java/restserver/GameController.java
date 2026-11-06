@@ -3,6 +3,8 @@ package restserver;
 import battleship.*;
 import restserver.Dtos.*;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.HttpHeaders;
+import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -87,7 +89,7 @@ public class GameController {
 	 * @return         { results, shipsRemaining, gameStatus, winner }
 	 */
 	@PostMapping("/game/{gameId}/shots")
-	public ResponseEntity<?> receiveShots(@PathVariable String gameId,
+	public ResponseEntity<?> receiveShots(@PathVariable("gameId") String gameId,
 										  @RequestBody ShotRequest request) {
 
 		// ── 1. Lookup session ────────────────────────────────────────────────
@@ -143,6 +145,24 @@ public class GameController {
 		return ResponseEntity.ok(m1bResponse);
 	}
 
+	@GetMapping(value = "/game/{gameId}/report", produces = MediaType.APPLICATION_PDF_VALUE)
+	public ResponseEntity<?> exportReport(@PathVariable("gameId") String gameId) {
+		GameSession session = registry.getSession(gameId);
+		if (session == null) {
+			return error(HttpStatus.NOT_FOUND, "Game not found: " + gameId);
+		}
+
+		try {
+			byte[] report = GameReportPdfGenerator.generate(session);
+			HttpHeaders headers = new HttpHeaders();
+			headers.setContentType(MediaType.APPLICATION_PDF);
+			headers.setContentDispositionFormData("attachment", "battleship-" + gameId + ".pdf");
+			return new ResponseEntity<>(report, headers, HttpStatus.OK);
+		} catch (java.io.IOException exception) {
+			return error(HttpStatus.INTERNAL_SERVER_ERROR, "Could not generate game report");
+		}
+	}
+
 	// =========================================================================
 	// Helpers
 	// =========================================================================
@@ -182,12 +202,24 @@ public class GameController {
 			results.add(dto);
 		}
 
+		session.recordMove(session.getPlayerName(), positions,
+				results.stream().map(result -> reportOutcome(result.outcome)).toList());
+
 		ShotResponse response  = new ShotResponse();
 		response.results       = results;
 		response.shipsRemaining = game.getRemainingShips();
 		response.gameStatus    = "ONGOING";
 		response.winner        = null;
 		return response;
+	}
+
+	private String reportOutcome(String outcome) {
+		return switch (outcome) {
+			case "MISS" -> "Agua";
+			case "HIT" -> "Tiro";
+			case "SUNK" -> "Afundou";
+			default -> outcome;
+		};
 	}
 
 	/** Convenience helper to build a JSON error response. */
