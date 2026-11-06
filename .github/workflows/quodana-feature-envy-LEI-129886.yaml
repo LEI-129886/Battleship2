@@ -16,10 +16,12 @@ jobs:
     steps:
       - uses: actions/checkout@v4
         with:
+          ref: ${{ github.event.pull_request.head.sha }}
           fetch-depth: 0   # necessário para o modo pull request
       - name: Qodana Scan
         uses: JetBrains/qodana-action@v2026.2
         with:
+          args: --config qodana-129886.yaml
           pr-mode: true
           upload-result: true
         env:
