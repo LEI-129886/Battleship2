@@ -1,12 +1,13 @@
 # 129861 - Nome do Aluno
-name: profile-129861
-baseProfile: empty
-inspections:
-  - inspection: OverlyCoupledClass
-    enabled: true
-    options:
-      m_classLimit: 15
-  - inspection: OverlyCoupledMethod
-    enabled: true
-    options:
-      m_classLimit: 10
+profile:
+  base:
+    name: empty
+  inspections:
+    - inspection: ClassCoupling
+      enabled: true
+      options:
+        m_classLimit: 15
+    - inspection: MethodCoupling
+      enabled: true
+      options:
+        m_classLimit: 10
