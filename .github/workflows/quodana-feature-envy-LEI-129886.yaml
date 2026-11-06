@@ -2,14 +2,14 @@
 name: Qodana - Feature Envy gate 129886
 
 on:
-  workflow_dispatch:
   pull_request:
   push:
-    branches:
-      - main
+    branches: [main]
+  workflow_dispatch:
 permissions:
   contents: read
-
+  checks: write
+  pull-requests: write
 jobs:
   qodana:
     runs-on: ubuntu-latest
@@ -18,9 +18,8 @@ jobs:
         with:
           ref: ${{ github.event.pull_request.head.sha }}
           fetch-depth: 0   # necessário para o modo pull request
-      - name: Qodana Scan
-        uses: JetBrains/qodana-action@v2026.2
+      - uses: JetBrains/qodana-action@v2026.2
         with:
           args: --config qodana-129886.yaml
           pr-mode: true
-          upload-result: true
+          use-annotations: true
