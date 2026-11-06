@@ -3,6 +3,7 @@
 import argparse
 import os
 import re
+import subprocess
 import sys
 
 KEYWORDS = {
@@ -91,16 +92,42 @@ def find_declarations(code: str):
         params = split_params(params_text)
         if params and not all(looks_like_param(p) for p in params):
             continue
-        yield name, len(params), code.count("\n", 0, m.start()) + 1
+        start = code.count("\n", 0, m.start()) + 1
+        end = code.count("\n", 0, i) + 1
+        yield name, len(params), start, end
+
+
+def changed_lines(base: str, head: str):
+    """Return {path: set(line numbers)} of added/modified lines in .java files."""
+    diff = subprocess.run(
+        ["git", "diff", "-U0", "--no-color", "--diff-filter=AMR", f"{base}...{head}", "--", "*.java"],
+        capture_output=True, text=True, check=True).stdout
+    result, current = {}, None
+    for line in diff.splitlines():
+        if line.startswith("+++ "):
+            current = None if line.endswith("/dev/null") else os.path.normpath(line[6:])
+            if current:
+                result.setdefault(current, set())
+        elif line.startswith("@@") and current:
+            m = re.search(r"\+(\d+)(?:,(\d+))?", line)
+            start, count = int(m.group(1)), int(m.group(2) or 1)
+            result[current].update(range(start, start + count))
+    return result
 
 
 def main():
     ap = argparse.ArgumentParser()
     ap.add_argument("--max", type=int, default=4)
     ap.add_argument("--root", default=".")
+    ap.add_argument("--base", help="base commit; only flag declarations touching lines changed since it")
+    ap.add_argument("--head", default="HEAD")
     ap.add_argument("--exclude", default="", help="comma-separated path substrings to skip")
     a = ap.parse_args()
     excludes = [e for e in a.exclude.split(",") if e]
+
+    changed = changed_lines(a.base, a.head) if a.base else None
+    if changed is not None:
+        print(f"Checking {len(changed)} changed Java file(s)")
 
     violations = 0
     for dp, dns, fns in os.walk(a.root):
@@ -109,12 +136,16 @@ def main():
             path = os.path.join(dp, fn)
             if not fn.endswith(".java") or any(e in path for e in excludes):
                 continue
+            rel = os.path.relpath(path, a.root)
+            if changed is not None and os.path.normpath(rel) not in changed:
+                continue
             with open(path, encoding="utf-8", errors="replace") as f:
                 code = blank_comments_and_strings(f.read())
-            for name, count, line in find_declarations(code):
+            for name, count, line, end in find_declarations(code):
                 if count > a.max:
+                    if changed is not None and not changed[os.path.normpath(rel)] & set(range(line, end + 1)):
+                        continue
                     violations += 1
-                    rel = os.path.relpath(path, a.root)
                     print(f"::error file={rel},line={line},title=Too many parameters::"
                           f"'{name}' has {count} parameters (max {a.max})")
     print(f"Done: {violations} violation(s).")
