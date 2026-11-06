@@ -16,7 +16,6 @@
 - [Code Architecture](#-code-architecture)
 - [Roadmap](#-roadmap)
 - [Contributing](#-contributing)
-
 ---
 
 ## 🎯 Project Overview
@@ -163,3 +162,11 @@ Distributed under the MIT License. See `LICENSE` for more information.
 ## Video
 
 https://youtu.be/9jlStKrfw7Y
+
+# Relatório de Inspeção Qodana
+
+## 1. Tabela de Mapeamento de Inspeção
+
+| Cheiro (Fowler) | Inspeção no IDE | ID da Inspeção | Métrica / Limiar | Limitações | Nº Aluno |
+|-----------------|-----------------|----------------|------------------|------------|----------|
+| **Inappropriate Intimacy** *(ou Large Class)* | Overly coupled class | `OverlyCoupledClass` | **Class Coupling**<br>Limiar por omissão: `m_classLimit = 15` | Usa um limiar absoluto estático (n.º total de classes dependentes). Não mede acoplamento a atributos (`ATFD`), coesão (`TCC`), nem distingue acoplamento concentrado (*Intensive*) de pulverizado (*Dispersed*). | 129861
