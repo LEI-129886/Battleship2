@@ -7,6 +7,8 @@ on:
 
 permissions:
   contents: read
+  pull-requests: write
+  issues: write
 
 jobs:
   checkstyle:
@@ -25,4 +27,35 @@ jobs:
             https://github.com/checkstyle/checkstyle/releases/download/checkstyle-10.21.4/checkstyle-10.21.4-all.jar
 
       - name: Run Checkstyle
-        run: java -jar checkstyle.jar -c checkstyle-129861.xml src
+        id: checkstyle_run
+        continue-on-error: true
+        run: |
+          java -jar checkstyle.jar -c checkstyle-129861.xml src > checkstyle-report.txt 2>&1
+
+      - name: Post PR Comment on Violation
+        if: steps.checkstyle_run.outcome == 'failure' && github.event_name == 'pull_request'
+        uses: actions/github-script@v7
+        with:
+          script: |
+            const fs = require('fs');
+            let report = '';
+            try {
+              report = fs.readFileSync('checkstyle-report.txt', 'utf8');
+            } catch (err) {
+              report = 'Could not read Checkstyle log.';
+            }
+
+            const message = `❌ **Checkstyle Quality Gate Failed!**\n\nFound constant naming violations (expected \`UPPER_SNAKE_CASE\`):\n\`\`\`text\n${report}\n\`\`\``;
+
+            github.rest.issues.createComment({
+              issue_number: context.issue.number,
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              body: message
+            });
+
+      - name: Enforce Quality Gate Failure
+        if: steps.checkstyle_run.outcome == 'failure'
+        run: |
+          echo "Checkstyle detected naming violations."
+          exit 1
