@@ -77,7 +77,7 @@ class TasksTest {
 		InputStream originalInput = System.in;
 		try {
 			System.setIn(new ByteArrayInputStream(commands.getBytes(StandardCharsets.UTF_8)));
-			Tasks.menu();
+			Tasks.MENU();
 		} finally {
 			System.setIn(originalInput);
 		}
