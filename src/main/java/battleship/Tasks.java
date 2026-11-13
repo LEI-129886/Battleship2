@@ -5,8 +5,6 @@ import java.nio.file.InvalidPathException;
 import java.nio.file.Path;
 import java.util.Scanner;
 import java.nio.file.Files;
-import java.nio.file.Path;
-import java.io.IOException;
 
 import org.apache.commons.lang3.time.DurationFormatUtils;
 import org.apache.logging.log4j.LogManager;
@@ -50,7 +48,7 @@ public class Tasks {
 	/**
 	 * This task also tests the fighting element of a round of three shots
 	 */
-	public static void menu() {
+	public static void MENU() {
 
 		IFleet myFleet = null;
 		Game game = null;

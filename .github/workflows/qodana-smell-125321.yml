@@ -1,5 +1,6 @@
-# 125321
+# 125321 - Miguel Santos
 name: Qodana smell gate 125321
+
 on:
   pull_request:
   push:
@@ -17,12 +18,11 @@ jobs:
     steps:
       - uses: actions/checkout@v4
         with:
-          ref: ${{ github.event.pull_request.head.sha || github.sha }}
+          ref: ${{ github.event.pull_request.head.sha }}
           fetch-depth: 0
 
       - uses: JetBrains/qodana-action@v2026.2
         with:
           args: --config qodana-125321.yaml
-          pr-mode: true
           use-annotations: true
           post-pr-comment: true

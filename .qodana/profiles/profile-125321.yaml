@@ -2,8 +2,8 @@
 name: profile-125321
 baseProfile: empty
 inspections:
-  - inspection: MethodWithTooManyParameters
+  - inspection: ParametersPerMethod
     enabled: true
     severity: WARNING
-    options:
-      m_limit: 4
+    option:
+      m_limit: 5

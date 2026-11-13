@@ -16,7 +16,6 @@
 - [Code Architecture](#-code-architecture)
 - [Roadmap](#-roadmap)
 - [Contributing](#-contributing)
-
 ---
 
 ## 🎯 Project Overview
@@ -165,3 +164,13 @@ Distributed under the MIT License. See `LICENSE` for more information.
 ## Video
 
 https://youtu.be/9jlStKrfw7Y
+
+# Relatório de Inspeção Qodana
+
+## 1. Tabela de Mapeamento de Inspeção
+
+| Cheiro (Fowler) | Inspeção no IDE | ID da Inspeção | Métrica / Limiar | Limitações | Nº Aluno |
+|-----------------|-----------------|----------------|------------------|------------|----------|
+| **Inappropriate Intimacy** *(ou Large Class)* | Overly coupled class | `OverlyCoupledClass` | **Class Coupling**<br>Limiar por omissão: `m_classLimit = 15` | Usa um limiar absoluto estático (n.º total de classes dependentes). Não mede acoplamento a atributos (`ATFD`), coesão (`TCC`), nem distingue acoplamento concentrado (*Intensive*) de pulverizado (*Dispersed*). | 129861
+| **Long Parameter List** | Method with too many parameters | `MethodWithTooManyParameters` | **Número de parâmetros por método**<br>Limiar por omissão: `m_limit = 5` (reporta métodos com mais de 5 parâmetros) | Usa um limiar absoluto estático, só conta parâmetros. Não avalia se estão relacionados (candidatos a *Introduce Parameter Object*), nem o tipo ou a coesão. Trata igualmente parâmetros primitivos e objetos. Pode gerar falsos positivos em métodos que implementam/sobrepõem contratos fixos (há opção para os ignorar). | 125321 
+|**Feature Envy**| Feature Envy | `FeatureEnvy` | **Numero de chamadas de métudos numa class para outra**<br>Limiar por omissão: `m_classLimit=3` | Usa a contagem de chamadas de métodos feitas por um método de uma classe para outra classe externa. O Qodana não contabiliza as chamadas direcionadas a Classes de bibliotecas (library classes), Classes pai (parent classes), Classes contidas ou contendo a classe atual (contained/containing classes). | 129886
