@@ -364,7 +364,7 @@ class TasksTest {
 		try (PrintStream output = new PrintStream(capturedOutput, true, StandardCharsets.UTF_8)) {
 			System.setIn(new ByteArrayInputStream(commands.getBytes(StandardCharsets.UTF_8)));
 			System.setOut(output);
-			Tasks.MENU();
+			Tasks.menu();
 		} finally {
 			System.setIn(originalInput);
 			System.setOut(originalOutput);

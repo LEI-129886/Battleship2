@@ -48,7 +48,7 @@ public class Tasks {
 	/**
 	 * This task also tests the fighting element of a round of three shots
 	 */
-	public static void MENU() {
+	public static void menu() {
 
 		IFleet myFleet = null;
 		Game game = null;
