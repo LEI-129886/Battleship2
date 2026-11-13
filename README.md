@@ -1,6 +1,6 @@
 # ⚓ Battleship 2.0
 
-![Build Status](https://img.shields.io/badge/build-passing-brightgreen)
+![Build Status](https://github.com/LEI-129886/Battleship2/actions/workflows/maven.yml/badge.svg)
 ![Java Version](https://img.shields.io/badge/Java-17%2B-blue)
 ![License](https://img.shields.io/badge/license-MIT-green)
 
@@ -139,6 +139,8 @@ mvn test
 
 > [!TIP]
 > Use the `-Dtest=ClassName` flag to run specific test suites during development.
+
+The [Java with Maven GitHub Actions workflow](.github/workflows/maven.yml) runs the unit tests with JDK 21 on every push and pull request.
 
 ---
 
