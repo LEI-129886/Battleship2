@@ -102,27 +102,13 @@ public class Tasks {
 
 						if (game.getRemainingShips() == 0) {
 							game.over();
-							System.exit(0);
+							return;
 						}
 					}
 					break;
 				case SIMULA:
-					if (game != null) {
-						while (game.getRemainingShips() > 0){
-							game.randomEnemyFire();
-							myFleet.printStatus();
-							game.printMyBoard(true, false);
-							try {
-								Thread.sleep(3000);
-							} catch (InterruptedException e) {
-								Thread.currentThread().interrupt(); // Best practice: restore interrupt status
-							}
-						}
-
-						if (game.getRemainingShips() == 0) {
-							game.over();
-						}
-					}
+					if (game != null)
+						simulateGame(game);
 					break;
 				case RELATORIO:
 					if (game != null)
@@ -154,8 +140,12 @@ public class Tasks {
 					if (file != null) {
 						try {
 							Game loadedGame = Game.load(file);
+							if (game != null)
+								playWatch.stop();
+							playWatch.reset();
 							game = loadedGame;
 							myFleet = loadedGame.getMyFleet();
+							playWatch.start();
 							System.out.println("Jogo carregado de " + file);
 							game.printMyBoard(false, true);
 						} catch (IOException exception) {
@@ -235,6 +225,25 @@ public class Tasks {
 			return null;
 		}
 	}
+
+	static void simulateGame(Game game) {
+		simulateGame(game, 3000);
+	}
+
+	static void simulateGame(Game game, long delayMillis) {
+		while (game.getRemainingShips() > 0) {
+			game.randomEnemyFire();
+			game.getMyFleet().printStatus();
+			game.printMyBoard(true, false);
+			try {
+				Thread.sleep(delayMillis);
+			} catch (InterruptedException exception) {
+				Thread.currentThread().interrupt();
+			}
+		}
+		game.over();
+	}
+
 	/**
 	 * This operation allows the build up of a fleet, given user data
 	 *
@@ -323,10 +332,6 @@ public class Tasks {
 		if (input.matches("[A-Z]\\d+")) {
 			char column = input.charAt(0); // Extrair a coluna
 			int row = Integer.parseInt(input.substring(1)); // Extrair a linha
-			return new Position(column, row);
-		} else if (part2 != null && part1.matches("[A-Z]") && part2.matches("\\d+")) {
-			char column = part1.charAt(0); // Extrair a coluna
-			int row = Integer.parseInt(part2); // Extrair a linha
 			return new Position(column, row);
 		} else {
 			throw new IllegalArgumentException("Formato inválido. Use 'A3', 'A 3' ou similar.");

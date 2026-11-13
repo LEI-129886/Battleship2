@@ -19,6 +19,12 @@ import static org.junit.jupiter.api.Assertions.*;
 class TasksTest {
 
 	@Test
+	@DisplayName("Constructs the Tasks utility")
+	void constructsTasks() {
+		assertNotNull(new Tasks());
+	}
+
+	@Test
 	@DisplayName("Rejects null scanners when assertions are enabled")
 	void scannerArgumentsMustNotBeNull() {
 		assertThrows(AssertionError.class, () -> Tasks.buildFleet(null));
@@ -127,6 +133,64 @@ class TasksTest {
 		String output = runMenu("carregar " + saveFile + System.lineSeparator()
 				+ "simula" + System.lineSeparator()
 				+ "desisto");
+
+		assertTrue(output.contains("Maldito sejas, Java Sparrow"));
+	}
+
+	@Test
+	@DisplayName("Restarts the stopwatch when loading over an active game")
+	void menuLoadsGameOverActiveGame(@TempDir Path tempDir) throws Exception {
+		Path saveFile = tempDir.resolve("replacement-game.json");
+		new Game(new Fleet()).save(saveFile);
+		String commands = "lefrota" + System.lineSeparator()
+				+ fleetInput()
+				+ "carregar " + saveFile + System.lineSeparator()
+				+ "desisto";
+
+		String output = runMenu(commands);
+
+		assertTrue(output.contains("O seu jogo começa agora."));
+		assertTrue(output.contains("Jogo carregado de "));
+	}
+
+	@Test
+	@DisplayName("Simulates turns until the fleet is sunk")
+	void simulateGameRunsUntilFinished() {
+		ScriptedGame game = new ScriptedGame(2);
+
+		Tasks.simulateGame(game, 0);
+
+		assertEquals(2, game.getTurns());
+		assertTrue(game.isOver());
+	}
+
+	@Test
+	@DisplayName("Restores the interrupted status when a simulation wait is interrupted")
+	void simulateGameRestoresInterruptStatus() {
+		ScriptedGame game = new ScriptedGame(1);
+		Thread.currentThread().interrupt();
+
+		try {
+			Tasks.simulateGame(game, 0);
+
+			assertEquals(1, game.getTurns());
+			assertTrue(game.isOver());
+			assertTrue(Thread.currentThread().isInterrupted());
+		} finally {
+			Thread.interrupted();
+		}
+	}
+
+	@Test
+	@DisplayName("Returns from the menu after the last ship is sunk")
+	void menuReturnsWhenGameIsOver(@TempDir Path tempDir) throws Exception {
+		Fleet fleet = new Fleet();
+		fleet.addShip(new Barge(Compass.NORTH, new Position(0, 0)));
+		Path saveFile = tempDir.resolve("last-ship.json");
+		new Game(fleet).save(saveFile);
+
+		String output = runMenu("carregar " + saveFile + System.lineSeparator()
+				+ "rajada A1 B2 C3" + System.lineSeparator());
 
 		assertTrue(output.contains("Maldito sejas, Java Sparrow"));
 	}
@@ -251,6 +315,46 @@ class TasksTest {
 					.append(System.lineSeparator());
 		}
 		return input.toString();
+	}
+
+	private static final class ScriptedGame extends Game {
+		private int remainingShips;
+		private int turns;
+		private boolean over;
+
+		private ScriptedGame(int remainingShips) {
+			super(new Fleet());
+			this.remainingShips = remainingShips;
+		}
+
+		@Override
+		public String randomEnemyFire() {
+			remainingShips--;
+			turns++;
+			return "";
+		}
+
+		@Override
+		public int getRemainingShips() {
+			return remainingShips;
+		}
+
+		@Override
+		public void printMyBoard(boolean showShots, boolean showLegend) {
+		}
+
+		@Override
+		public void over() {
+			over = true;
+		}
+
+		private int getTurns() {
+			return turns;
+		}
+
+		private boolean isOver() {
+			return over;
+		}
 	}
 
 	private static String runMenu(String commands) {
