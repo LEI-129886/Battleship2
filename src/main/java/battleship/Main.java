@@ -14,7 +14,7 @@ public class Main
     {
 		System.out.println("***  Battleship  ***");
 
-		Tasks.MENU();
+		Tasks.menu();
     }
 
 	public void teste(int a, int b, int c, int d, int e){

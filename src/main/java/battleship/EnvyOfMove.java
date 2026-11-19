@@ -11,7 +11,7 @@ import java.util.Map;
 
 public class EnvyOfMove {
     public EnvyOfMove(){}
-    public static String MoveString(int number, int shotSize, int resSize){
+    public static String moveString(int number, int shotSize, int resSize){
         return "Move{" +
                 "number=" + number +
                 ", shots=" + shotSize +

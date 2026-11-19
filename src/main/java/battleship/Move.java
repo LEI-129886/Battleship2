@@ -29,7 +29,7 @@ public class Move implements IMove {
 
 	@Override
 	public String toString() {
-		return EnvyOfMove.MoveString(number,shots.size(),shotResults.size());
+		return EnvyOfMove.moveString(number,shots.size(),shotResults.size());
 	}
 
 	@Override
