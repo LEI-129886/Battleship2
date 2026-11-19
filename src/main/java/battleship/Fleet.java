@@ -38,7 +38,7 @@ public class Fleet implements IFleet
 			Ship ship = Ship.buildShip(shipTypes[fleetSize], Compass.randomBearing(), Position.randomPosition());
 
 			// Attempt to add the ship to the fleet
-			if (ship != null && randomFleet.addShip(ship)) {
+			if (randomFleet.addShip(ship)) {
 				fleetSize++; // Increment count if ship is successfully added
 			}
 		}
