@@ -14,6 +14,8 @@ import java.util.*;
  * Time: 19:39
  */
 public record Move(int number, List<IPosition> shots, List<IGame.ShotResult> shotResults) implements IMove {
+	private record EnemyFireSummary(int repeatedShots, int validShots, int missedShots, int outsideShots,
+			Map<String, Integer> hitsPerBoat, Map<String, Integer> sunkBoatsCount) {}
 
 	@Override
 	public String toString() {
@@ -78,7 +80,8 @@ public record Move(int number, List<IPosition> shots, List<IGame.ShotResult> sho
 
 		int outsideShots = Game.NUMBER_SHOTS - validShots - repeatedShots;
 		if (verbose)
-			printEnemyFireSummary(repeatedShots, validShots, missedShots, outsideShots, hitsPerBoat, sunkBoatsCount);
+			printEnemyFireSummary(new EnemyFireSummary(repeatedShots, validShots, missedShots, outsideShots,
+					hitsPerBoat, sunkBoatsCount));
 
 		Map<String, Object> response = new HashMap<>();
 		response.put("validShots", validShots);
@@ -118,39 +121,38 @@ public record Move(int number, List<IPosition> shots, List<IGame.ShotResult> sho
 		}
 	}
 
-	private void printEnemyFireSummary(int repeatedShots, int validShots, int missedShots, int outsideShots,
-			Map<String, Integer> hitsPerBoat, Map<String, Integer> sunkBoatsCount) {
+	private void printEnemyFireSummary(EnemyFireSummary summary) {
 		StringBuilder output = new StringBuilder();
-		if (validShots == 0 && repeatedShots > 0) {
-			output.append(repeatedShots).append(" tiro").append(repeatedShots > 1 ? "s" : "").append(" repetido").append(repeatedShots > 1 ? "s" : "");
+		if (summary.validShots() == 0 && summary.repeatedShots() > 0) {
+			output.append(summary.repeatedShots()).append(" tiro").append(summary.repeatedShots() > 1 ? "s" : "").append(" repetido").append(summary.repeatedShots() > 1 ? "s" : "");
 		} else {
-			if (validShots > 0)
-				output.append(validShots).append(" tiro").append(validShots > 1 ? "s" : "").append(" válido").append(validShots > 1 ? "s" : "").append(": ");
-			for (Map.Entry<String, Integer> entry : sunkBoatsCount.entrySet()) {
+			if (summary.validShots() > 0)
+				output.append(summary.validShots()).append(" tiro").append(summary.validShots() > 1 ? "s" : "").append(" válido").append(summary.validShots() > 1 ? "s" : "").append(": ");
+			for (Map.Entry<String, Integer> entry : summary.sunkBoatsCount().entrySet()) {
 				int count = entry.getValue();
 				output.append(count).append(" ").append(entry.getKey()).append(count > 1 ? "s" : "").append(" ao fundo").append(" + ");
 			}
-			for (Map.Entry<String, Integer> entry : hitsPerBoat.entrySet()) {
-				if (!sunkBoatsCount.containsKey(entry.getKey())) {
+			for (Map.Entry<String, Integer> entry : summary.hitsPerBoat().entrySet()) {
+				if (!summary.sunkBoatsCount().containsKey(entry.getKey())) {
 					int hits = entry.getValue();
 					output.append(hits).append(" tiro").append(hits > 1 ? "s" : "").append(" num(a) ").append(entry.getKey()).append(" + ");
 				}
 			}
-			if (missedShots > 0) {
-				output.append(missedShots).append(" tiro").append(missedShots > 1 ? "s" : "").append(" na água");
-			} else if (!sunkBoatsCount.isEmpty() || !hitsPerBoat.isEmpty()) {
+			if (summary.missedShots() > 0) {
+				output.append(summary.missedShots()).append(" tiro").append(summary.missedShots() > 1 ? "s" : "").append(" na água");
+			} else if (!summary.sunkBoatsCount().isEmpty() || !summary.hitsPerBoat().isEmpty()) {
 				output.setLength(output.length() - 2);
 			}
-			if (repeatedShots > 0) {
-				if (validShots > 0)
+			if (summary.repeatedShots() > 0) {
+				if (summary.validShots() > 0)
 					output.append(", ");
-				output.append(repeatedShots).append(" tiro").append(repeatedShots > 1 ? "s" : "").append(" repetido").append(repeatedShots > 1 ? "s" : "");
+				output.append(summary.repeatedShots()).append(" tiro").append(summary.repeatedShots() > 1 ? "s" : "").append(" repetido").append(summary.repeatedShots() > 1 ? "s" : "");
 			}
 		}
-		if (outsideShots > 0) {
+		if (summary.outsideShots() > 0) {
 			if (!output.isEmpty())
 				output.append(", ");
-			output.append(outsideShots).append(" tiro").append(outsideShots > 1 ? "s" : "").append(" exterior").append(outsideShots > 1 ? "es" : "");
+			output.append(summary.outsideShots()).append(" tiro").append(summary.outsideShots() > 1 ? "s" : "").append(" exterior").append(summary.outsideShots() > 1 ? "es" : "");
 		}
 		System.out.println("Jogada nº" + number + " -> " + output);
 	}
