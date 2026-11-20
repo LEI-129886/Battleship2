@@ -4,7 +4,6 @@
 package battleship;
 
 import java.util.ArrayList;
-import java.util.Iterator;
 import java.util.List;
 import java.util.Objects;
 
@@ -347,12 +346,7 @@ public abstract class Ship implements IShip
     {
 		assert other != null;
 
-		Iterator<IPosition> otherPos = other.getPositions().iterator();
-		while (otherPos.hasNext())
-			if (tooCloseTo(otherPos.next()))
-				return true;
-
-		return false;
+        return other.getPositions().stream().anyMatch(this::tooCloseTo);
     }
 
 	/**
