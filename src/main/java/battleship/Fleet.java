@@ -38,7 +38,7 @@ public class Fleet implements IFleet
 			Ship ship = Ship.buildShip(shipTypes[fleetSize], Compass.randomBearing(), Position.randomPosition());
 
 			// Attempt to add the ship to the fleet
-			if (ship != null && randomFleet.addShip(ship)) {
+			if (randomFleet.addShip(ship)) {
 				fleetSize++; // Increment count if ship is successfully added
 			}
 		}
@@ -90,7 +90,7 @@ public class Fleet implements IFleet
 		assert s != null;
 
 		boolean result = false;
-		if ((ships.size() <= FLEET_SIZE) && (s.isInsideBoard()) && (!colisionRisk(s)))
+		if ((ships.size() <= FLEET_SIZE) && (s.isInsideBoard()) && (isCollisionFree(s)))
 		{
 			ships.add(s);
 			result = true;
@@ -192,16 +192,16 @@ public class Fleet implements IFleet
 	 * @param s the s
 	 * @return the boolean
 	 */
-	private boolean colisionRisk(IShip s)
+	private boolean isCollisionFree(IShip s)
     {
 		assert s != null;
 
 		for (int i = 0; i < ships.size(); i++)
 		{
 			if (ships.get(i).tooCloseTo(s))
-				return true;
+				return false;
 		}
-		return false;
+		return true;
     }
 
 	/**

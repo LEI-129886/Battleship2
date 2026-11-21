@@ -325,34 +325,50 @@ public class Game implements IGame
 		for (MoveData savedMove : savedMoves) {
 			if (savedMove == null || savedMove.shots() == null || savedMove.results() == null)
 				throw new IOException("Game save contains an incomplete move");
-			List<IPosition> shots = new ArrayList<>();
-			for (PositionData shot : savedMove.shots()) {
-				if (shot == null)
-					throw new IOException("Game save contains an invalid shot");
-				shots.add(new Position(shot.row(), shot.column()));
-			}
-			List<ShotResult> results = new ArrayList<>();
-			for (ShotResultData result : savedMove.results()) {
-				if (result == null)
-					throw new IOException("Game save contains an invalid shot result");
-				IShip ship = null;
-				if (result.fleet() != null && result.shipIndex() != null) {
-					IFleet fleet = switch (result.fleet()) {
-						case "my" -> myFleet;
-						case "alien" -> alienFleet;
-						default -> throw new IOException("Game save references an unknown fleet");
-					};
-					if (result.shipIndex() < 0 || result.shipIndex() >= fleet.getShips().size())
-						throw new IOException("Game save references an unknown ship");
-					ship = fleet.getShips().get(result.shipIndex());
-				} else if (result.fleet() != null || result.shipIndex() != null) {
-					throw new IOException("Game save contains an incomplete ship reference");
-				}
-				results.add(new ShotResult(result.valid(), result.repeated(), ship, result.sunk()));
-			}
+			List<IPosition> shots = restoreMoveShots(savedMove.shots());
+			List<ShotResult> results = restoreMoveResults(savedMove.results(), myFleet, alienFleet);
 			moves.add(new Move(savedMove.number(), shots, results));
 		}
 		return moves;
+	}
+
+	private static List<IPosition> restoreMoveShots(List<PositionData> savedShots) throws IOException {
+		List<IPosition> shots = new ArrayList<>();
+		for (PositionData shot : savedShots) {
+			if (shot == null)
+				throw new IOException("Game save contains an invalid shot");
+			shots.add(new Position(shot.row(), shot.column()));
+		}
+		return shots;
+	}
+
+	private static List<ShotResult> restoreMoveResults(List<ShotResultData> savedResults,
+			IFleet myFleet, IFleet alienFleet) throws IOException {
+		List<ShotResult> results = new ArrayList<>();
+		for (ShotResultData result : savedResults) {
+			if (result == null)
+				throw new IOException("Game save contains an invalid shot result");
+			results.add(new ShotResult(result.valid(), result.repeated(),
+					restoreResultShip(result, myFleet, alienFleet), result.sunk()));
+		}
+		return results;
+	}
+
+	private static IShip restoreResultShip(ShotResultData result, IFleet myFleet, IFleet alienFleet)
+			throws IOException {
+		if (result.fleet() == null && result.shipIndex() == null)
+			return null;
+		if (result.fleet() == null || result.shipIndex() == null)
+			throw new IOException("Game save contains an incomplete ship reference");
+
+		IFleet fleet = switch (result.fleet()) {
+			case "my" -> myFleet;
+			case "alien" -> alienFleet;
+			default -> throw new IOException("Game save references an unknown fleet");
+		};
+		if (result.shipIndex() < 0 || result.shipIndex() >= fleet.getShips().size())
+			throw new IOException("Game save references an unknown ship");
+		return fleet.getShips().get(result.shipIndex());
 	}
 
 	@Override
