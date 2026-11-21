@@ -21,7 +21,7 @@ import java.util.List;
  * - getFloatingShips: 2
  * - shipAt: 2
  * - isInsideBoard: 3
- * - colisionRisk: 2
+ * - isCollisionFree: 2
  */
 	public class FleetTest {
 
@@ -188,20 +188,20 @@ import java.util.List;
 
 
 		/**
-		 * Test for private method colisionRisk.
+		 * Test for private method isCollisionFree.
 		 * Cyclomatic Complexity: 2
 		 */
 		@Test
 		void testColisionRisk() throws Exception {
-			var method = Fleet.class.getDeclaredMethod("colisionRisk", IShip.class);
+			var method = Fleet.class.getDeclaredMethod("isCollisionFree", IShip.class);
 			method.setAccessible(true);
 
 			IShip ship1 = new Barge(Compass.NORTH, new Position(1, 1));
 			IShip ship2 = new Barge(Compass.NORTH, new Position(1, 1));  // Overlapping position
 			fleet.addShip(ship1);
 
-			assertTrue((Boolean) method.invoke(fleet, ship2), "Error: Overlapping ships should be at collision risk.");
-			assertFalse((Boolean) method.invoke(fleet, new Barge(Compass.NORTH, new Position(5, 5))),
+			assertFalse((Boolean) method.invoke(fleet, ship2), "Error: Overlapping ships should be at collision risk.");
+			assertTrue((Boolean) method.invoke(fleet, new Barge(Compass.NORTH, new Position(5, 5))),
 					"Error: Ships at non-overlapping positions should not have a collision risk.");
 		}
 
@@ -267,7 +267,7 @@ import java.util.List;
 			assertThrows(AssertionError.class, () -> fleet.printShips(null));
 			assertThrows(AssertionError.class, () -> fleet.printShipsByCategory(null));
 
-			var collisionRisk = Fleet.class.getDeclaredMethod("colisionRisk", IShip.class);
+			var collisionRisk = Fleet.class.getDeclaredMethod("isCollisionFree", IShip.class);
 			collisionRisk.setAccessible(true);
 			assertThrows(java.lang.reflect.InvocationTargetException.class,
 					() -> collisionRisk.invoke(fleet, new Object[] {null}));

@@ -208,8 +208,7 @@ public class Position implements IPosition {
 		if (this == otherPosition) {
 			return true;
 		}
-		if (otherPosition instanceof IPosition) {
-			IPosition other = (IPosition) otherPosition;
+		if (otherPosition instanceof IPosition other) {
 			return this.row == other.getRow() && this.column == other.getColumn();
 		}
 		return false;
