@@ -99,10 +99,10 @@ public final class GameReportPdfGenerator {
 		drawText(content, "Data e hora", 8, 330, 650, MUTED);
 		drawText(content, DATE_FORMAT.format(session.getStartedAt()), 10, 330, 634, INK);
 
-		drawCard(content, MARGIN, 550, 160, 53, "RESULTADO", result(session), resultColor(session));
-		drawCard(content, 217, 550, 107, 53, "JOGADAS", String.valueOf(session.getReportEntries().size()), TEAL);
-		drawCard(content, 341, 550, 99, 53, "TURNOS", String.valueOf(turns(session.getReportEntries())), TEAL);
-		drawCard(content, 457, 550, 96, 53, "TIROS", String.valueOf(water + hits + sunk), TEAL);
+		drawCard(new CardParameters(content, MARGIN, 550, 160, 53, "RESULTADO", result(session), resultColor(session)));
+		drawCard(new CardParameters(content, 217, 550, 107, 53, "JOGADAS", String.valueOf(session.getReportEntries().size()), TEAL));
+		drawCard(new CardParameters(content, 341, 550, 99, 53, "TURNOS", String.valueOf(turns(session.getReportEntries())), TEAL));
+		drawCard(new CardParameters(content, 457, 550, 96, 53, "TIROS", String.valueOf(water + hits + sunk), TEAL));
 
 		drawText(content, "DISTRIBUICAO DOS TIROS", 9, MARGIN, 515, TEAL);
 		int maximum = Math.max(1, Math.max(water, Math.max(hits, sunk)));
@@ -111,16 +111,15 @@ public final class GameReportPdfGenerator {
 		drawBar(content, "Afundou", sunk, maximum, 412, new Color(235, 150, 69));
 	}
 
-	private static void drawCard(PDPageContentStream content, float x, float y, float width,
-			float height, String label, String value, Color accent) throws IOException {
-		content.setNonStrokingColor(new Color(247, 250, 250));
-		content.addRect(x, y, width, height);
-		content.fill();
-		content.setNonStrokingColor(accent);
-		content.addRect(x, y, 4, height);
-		content.fill();
-		drawText(content, label, 7, x + 12, y + 37, MUTED);
-		drawText(content, value, 13, x + 12, y + 16, accent);
+	private static void drawCard(CardParameters cardParameters) throws IOException {
+		cardParameters.content().setNonStrokingColor(new Color(247, 250, 250));
+		cardParameters.content().addRect(cardParameters.x(), cardParameters.y(), cardParameters.width(), cardParameters.height());
+		cardParameters.content().fill();
+		cardParameters.content().setNonStrokingColor(cardParameters.accent());
+		cardParameters.content().addRect(cardParameters.x(), cardParameters.y(), 4, cardParameters.height());
+		cardParameters.content().fill();
+		drawText(cardParameters.content(), cardParameters.label(), 7, cardParameters.x() + 12, cardParameters.y() + 37, MUTED);
+		drawText(cardParameters.content(), cardParameters.value(), 13, cardParameters.x() + 12, cardParameters.y() + 16, cardParameters.accent());
 	}
 
 	private static void drawBar(PDPageContentStream content, String label, int value, int maximum,
