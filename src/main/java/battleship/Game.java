@@ -133,7 +133,7 @@ public class Game implements IGame
 			simplifiedShots.add(simplePos);
 		}
 
-		String jsonString = null;
+		String jsonString;
 		try {
 			// 2. Serialize the simplified list instead of the raw 'shots' list
 			jsonString = objectMapper.writeValueAsString(simplifiedShots);
@@ -165,10 +165,11 @@ public class Game implements IGame
 	private record ShipData(String category, Compass bearing, PositionData position, List<PositionData> hits) {}
 	private record ShotResultData(boolean valid, boolean repeated, String fleet, Integer shipIndex, boolean sunk) {}
 	private record MoveData(int number, List<PositionData> shots, List<ShotResultData> results) {}
-	private record SaveData(int version, List<ShipData> myFleet, List<ShipData> alienFleet,
-						 List<MoveData> alienMoves, List<MoveData> myMoves,
-						 int countInvalidShots, int countRepeatedShots, int countHits,
-						 int countSinks, int moveNumber) {}
+	@SuppressWarnings("SameParameterValue")
+    private record SaveData(int version, List<ShipData> myFleet, List<ShipData> alienFleet,
+                            List<MoveData> alienMoves, List<MoveData> myMoves,
+                            int countInvalidShots, int countRepeatedShots, int countHits,
+                            int countSinks, int moveNumber) {}
 
 	//------------------------------------------------------------------
 	private final IFleet myFleet;
