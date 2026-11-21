@@ -6,7 +6,6 @@ import battleship.IGame;
 
 import java.time.Instant;
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.List;
 
 /**
@@ -90,7 +89,7 @@ public class GameSession {
 	}
 
 	public synchronized List<ReportEntry> getReportEntries() {
-		return Collections.unmodifiableList(new ArrayList<>(reportEntries));
+		return List.copyOf(reportEntries);
 	}
 
 	public record ReportEntry(int turn, String player, String coordinate, String outcome) {}
