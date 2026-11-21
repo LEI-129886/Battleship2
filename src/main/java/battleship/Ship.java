@@ -3,6 +3,8 @@
  */
 package battleship;
 
+import org.jetbrains.annotations.Nullable;
+
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
@@ -48,28 +50,14 @@ public abstract class Ship implements IShip
 		assert bearing != null;
 		assert pos != null;
 
-        Ship s;
-        switch (shipKind)
-        {
-        case BARCA:
-            s = new Barge(bearing, pos);
-			break;
-        case CARAVELA:
-            s = new Caravel(bearing, pos);
-			break;
-        case NAU:
-            s = new Carrack(bearing, pos);
-			break;
-        case FRAGATA:
-            s = new Frigate(bearing, pos);
-			break;
-        case GALEAO:
-            s = new Galleon(bearing, pos);
-			break;
-        default:
-            s = null;
-        }
-        return s;
+        return switch (shipKind) {
+            case BARCA -> new Barge(bearing, pos);
+            case CARAVELA -> new Caravel(bearing, pos);
+            case NAU -> new Carrack(bearing, pos);
+            case FRAGATA -> new Frigate(bearing, pos);
+            case GALEAO -> new Galleon(bearing, pos);
+            default -> null;
+        };
     }
 
     //---------------------------------------------------------
